@@ -100,7 +100,7 @@ def build_judge_prompt(record: dict[str, Any]) -> str:
         f"{json.dumps(result_shape, indent=2)}\n\n"
         "Rules:\n"
         "- each failure field must be binary: 0 (pass) or 1 (fail)\n"
-        "- mark 1 only when the failure is clearly present\n"
+        
         "- overall_failed must be 1 if any failure field is 1; else 0\n"
         "- notes should briefly justify the major flag(s)\n"
         "- no markdown, no extra keys, no commentary\n"
