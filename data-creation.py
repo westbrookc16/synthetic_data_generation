@@ -19,7 +19,7 @@ from openai import (
 from pydantic import ValidationError
 
 from model import DIYRepairQA
-from prompts import prompt_config
+from prompts import prompt_configs
 
 
 def load_env_file(path: str = ".env") -> None:
@@ -65,6 +65,8 @@ def build_user_prompt() -> str:
         "Return exactly one JSON object matching this shape:\n"
         f"{json.dumps(schema, indent=2)}\n\n"
         "Requirements:\n"
+        "- Create realistic homeowner repair question/answer pairs that strictly follow "
+        "the required schema.\n"
         "- steps must be ordered and numbered like '1. ...', '2. ...'\n"
         "- tools_required and tips must be realistic and practical\n"
         "- no markdown, no extra keys, no commentary\n"
@@ -77,13 +79,14 @@ def request_one_record(
     max_retries: int = 6,
     base_backoff_seconds: float = 1.0,
     max_backoff_seconds: float = 20.0,
+    id:int=0
 ) -> dict[str, Any]:
     for attempt in range(max_retries + 1):
         try:
             response = client.responses.create(
                 model=model,
                 input=[
-                    {"role": "system", "content": prompt_config["prompt"]},
+                    {"role": "system", "content": prompt_configs[id%5]["prompt"]},
                     {"role": "user", "content": build_user_prompt()},
                 ],
             )
@@ -128,7 +131,7 @@ def generate_records(
         attempts += 1
         print(f"Attempt {attempts}/{max_attempts} (accepted: {len(items)}/{count})")
         try:
-            raw = request_one_record(client, model, max_retries=retry_max)
+            raw = request_one_record(client, model, max_retries=retry_max, id=len(items))
             raw["id"] = len(items) + 1
             item = DIYRepairQA.model_validate(raw)
             items.append(item)
