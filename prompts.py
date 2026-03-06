@@ -6,8 +6,8 @@ prompt_configs: list[dict[str, str]] = [
             
         ),
     },
-    {"type":"Plumbing","prompt":"You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems)."},
-    {"type":"electrical","prompt":"You are a diy electrical expert (outlet replacement, switch repair, light fixture installation). Provide onlly repairs that can be safely performed by a home owner."},
+    {"type":"Plumbing","prompt":"You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.)."},
+    {"type":"electrical","prompt":"You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner."},
     {"type":"hvac","prompt":"You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting)."},
     {"type":"general","prompt":"You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry)."}
 ]

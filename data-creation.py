@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import os
 import random
@@ -50,7 +51,7 @@ def load_env_file(path: str = ".env") -> None:
         os.environ.setdefault(key, value)
 
 
-def build_user_prompt() -> str:
+def build_user_prompt(recent_questions: list[str], max_recent: int = 15) -> str:
     schema = {
         "id": 1,
         "question": "string",
@@ -67,15 +68,22 @@ def build_user_prompt() -> str:
         "Requirements:\n"
         "- Create realistic homeowner repair question/answer pairs that strictly follow "
         "the required schema.\n"
+        "- The question must be a novel scenario and wording.\n"
         "- steps must be ordered and numbered like '1. ...', '2. ...'\n"
         "- tools_required and tips must be realistic and practical\n"
         "- no markdown, no extra keys, no commentary\n"
+        "\n"
+        "Do not repeat or closely paraphrase any of these prior questions:\n"
+        f"{json.dumps(recent_questions[-max_recent:], indent=2)}\n"
     )
 
 
 def request_one_record(
     client: OpenAI,
     model: str,
+    recent_questions: list[str],
+    temperature: float,
+    top_p: float,
     max_retries: int = 6,
     base_backoff_seconds: float = 1.0,
     max_backoff_seconds: float = 20.0,
@@ -85,9 +93,11 @@ def request_one_record(
         try:
             response = client.responses.create(
                 model=model,
+                temperature=temperature,
+                top_p=top_p,
                 input=[
                     {"role": "system", "content": prompt_configs[id%5]["prompt"]},
-                    {"role": "user", "content": build_user_prompt()},
+                    {"role": "user", "content": build_user_prompt(recent_questions)},
                 ],
             )
             break
@@ -120,10 +130,14 @@ def generate_records(
     client: OpenAI,
     model: str,
     count: int,
+    temperature: float,
+    top_p: float,
+    question_similarity_threshold: float,
     request_delay_seconds: float = 0.25,
     retry_max: int = 6,
 ) -> list[DIYRepairQA]:
     items: list[DIYRepairQA] = []
+    normalized_questions: set[str] = set()
     attempts = 0
     max_attempts = count * 4
 
@@ -131,9 +145,35 @@ def generate_records(
         attempts += 1
         print(f"Attempt {attempts}/{max_attempts} (accepted: {len(items)}/{count})")
         try:
-            raw = request_one_record(client, model, max_retries=retry_max, id=len(items))
+            raw = request_one_record(
+                client,
+                model,
+                recent_questions=[x.question for x in items],
+                temperature=temperature,
+                top_p=top_p,
+                max_retries=retry_max,
+                id=len(items),
+            )
             raw["id"] = len(items) + 1
+            raw["model"]=model
+            raw["prompt"]=prompt_configs[len(items)%5]["type"]
             item = DIYRepairQA.model_validate(raw)
+
+            normalized_question = " ".join(item.question.lower().split())
+            if normalized_question in normalized_questions:
+                print(f"Rejected candidate (duplicate question): {item.question}")
+                continue
+
+            is_near_duplicate = any(
+                difflib.SequenceMatcher(a=normalized_question, b=existing).ratio()
+                >= question_similarity_threshold
+                for existing in normalized_questions
+            )
+            if is_near_duplicate:
+                print(f"Rejected candidate (near-duplicate question): {item.question}")
+                continue
+
+            normalized_questions.add(normalized_question)
             items.append(item)
             print(f"Accepted record id={item.id} ({len(items)}/{count})")
         except (ValueError, ValidationError):
@@ -184,6 +224,24 @@ def parse_args() -> argparse.Namespace:
         default=6,
         help="Max retries for transient OpenAI API errors (rate limits, timeouts).",
     )
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=0.9,
+        help="Sampling temperature (higher is more varied output).",
+    )
+    parser.add_argument(
+        "--top-p",
+        type=float,
+        default=1.0,
+        help="Nucleus sampling parameter for output diversity.",
+    )
+    parser.add_argument(
+        "--question-similarity-threshold",
+        type=float,
+        default=0.90,
+        help="Reject near-duplicate questions at or above this similarity ratio.",
+    )
     return parser.parse_args()
 
 
@@ -196,6 +254,12 @@ def main() -> None:
         raise ValueError("--request-delay-seconds must be >= 0")
     if args.retry_max < 0:
         raise ValueError("--retry-max must be >= 0")
+    if not 0 <= args.temperature <= 2:
+        raise ValueError("--temperature must be between 0 and 2")
+    if not 0 < args.top_p <= 1:
+        raise ValueError("--top-p must be in the range (0, 1]")
+    if not 0 < args.question_similarity_threshold <= 1:
+        raise ValueError("--question-similarity-threshold must be in the range (0, 1]")
 
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
@@ -206,6 +270,9 @@ def main() -> None:
         client=client,
         model=args.model,
         count=args.count,
+        temperature=args.temperature,
+        top_p=args.top_p,
+        question_similarity_threshold=args.question_similarity_threshold,
         request_delay_seconds=args.request_delay_seconds,
         retry_max=args.retry_max,
     )

@@ -5,6 +5,9 @@ from pydantic import BaseModel, Field, field_validator
 
 class DIYRepairQA(BaseModel):
     id: int = Field(..., ge=1, description="Unique integer identifier for the record")
+    prompt:str=Field(description="Which prompt was used.")
+    model:str=Field(description="which model was used.")
+    
     question: str = Field(..., min_length=10, description="A realistic DIY repair question from a homeowner")
     answer: str = Field(..., min_length=20, description="A clear, actionable answer with step-by-step guidance")
     equipment_problem: str = Field(..., min_length=3, description='The specific problem being addressed (e.g. "dripping faucet")')
