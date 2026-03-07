@@ -17,10 +17,21 @@ from openai import (
     OpenAI,
     RateLimitError,
 )
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 
 from model import DIYRepairQA
 from prompts import prompt_configs
+import instructor
+
+
+class GeneratedDIYRepairQA(BaseModel):
+    question: str
+    answer: str
+    equipment_problem: str
+    tools_required: list[str]
+    steps: list[str]
+    safety_info: str
+    tips: list[str]
 
 
 def load_env_file(path: str = ".env") -> None:
@@ -79,7 +90,7 @@ def build_user_prompt(recent_questions: list[str], max_recent: int = 15) -> str:
 
 
 def request_one_record(
-    client: OpenAI,
+    client: instructor.Instructor,
     model: str,
     recent_questions: list[str],
     temperature: float,
@@ -87,15 +98,16 @@ def request_one_record(
     max_retries: int = 6,
     base_backoff_seconds: float = 1.0,
     max_backoff_seconds: float = 20.0,
-    id:int=0
+    id: int = 0,
 ) -> dict[str, Any]:
     for attempt in range(max_retries + 1):
         try:
-            response = client.responses.create(
+            response = client.chat.completions.create(
                 model=model,
+                response_model=GeneratedDIYRepairQA,
                 temperature=temperature,
                 top_p=top_p,
-                input=[
+                messages=[
                     {"role": "system", "content": prompt_configs[id%5]["prompt"]},
                     {"role": "user", "content": build_user_prompt(recent_questions)},
                 ],
@@ -119,15 +131,11 @@ def request_one_record(
             )
             time.sleep(delay)
 
-    text = response.output_text.strip()
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Model did not return valid JSON: {text}") from exc
+    return response.model_dump()
 
 
 def generate_records(
-    client: OpenAI,
+    client: instructor.Instructor,
     model: str,
     count: int,
     temperature: float,
@@ -265,7 +273,8 @@ def main() -> None:
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY is not set. Add it to your environment or .env file.")
 
-    client = OpenAI(api_key=api_key)
+    openai_client = OpenAI(api_key=api_key)
+    client = instructor.from_openai(openai_client)
     records = generate_records(
         client=client,
         model=args.model,
