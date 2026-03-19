@@ -20,9 +20,11 @@ from openai import (
 )
 from pydantic import BaseModel, ValidationError
 
+import instructor
+from env_utils import load_env_file
+from jsonl_utils import write_jsonl
 from model import DIYRepairQA
 from prompts import prompt_configs
-import instructor
 
 
 class GeneratedDIYRepairQA(BaseModel):
@@ -33,35 +35,6 @@ class GeneratedDIYRepairQA(BaseModel):
     steps: list[str]
     safety_info: str
     tips: list[str]
-
-
-def load_env_file(path: str = ".env") -> None:
-    env_path = Path(path)
-    if not env_path.exists():
-        return
-
-    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if line.startswith("export "):
-            line = line[len("export ") :].strip()
-        if "=" not in line:
-            continue
-
-        key, value = line.split("=", 1)
-        key = key.strip()
-        value = value.strip()
-        if not key:
-            continue
-
-        if (value.startswith('"') and value.endswith('"')) or (
-            value.startswith("'") and value.endswith("'")
-        ):
-            value = value[1:-1]
-
-        os.environ.setdefault(key, value)
-
 
 def build_user_prompt(recent_questions: list[str], max_recent: int = 15) -> str:
     schema = {
@@ -245,14 +218,6 @@ def generate_records(
         )
 
     return items
-
-
-def write_jsonl(path: Path, records: list[DIYRepairQA]) -> None:
-    with path.open("w", encoding="utf-8") as f:
-        for record in records:
-            f.write(record.model_dump_json())
-            f.write("\n")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate validated DIY repair data.")

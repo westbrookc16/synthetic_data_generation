@@ -18,36 +18,10 @@ from openai import (
 )
 from pydantic import BaseModel, Field, ValidationError
 
+from env_utils import load_env_file
+from jsonl_utils import read_jsonl, write_jsonl
 from model import DIYRepairQA
 from prompts import judge_prompt_config
-
-
-def load_env_file(path: str = ".env") -> None:
-    env_path = Path(path)
-    if not env_path.exists():
-        return
-
-    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if line.startswith("export "):
-            line = line[len("export ") :].strip()
-        if "=" not in line:
-            continue
-
-        key, value = line.split("=", 1)
-        key = key.strip()
-        value = value.strip()
-        if not key:
-            continue
-
-        if (value.startswith('"') and value.endswith('"')) or (
-            value.startswith("'") and value.endswith("'")
-        ):
-            value = value[1:-1]
-
-        os.environ.setdefault(key, value)
 
 
 class QualityMetrics(BaseModel):
@@ -248,28 +222,6 @@ def request_judgment(
             time.sleep(0.75 + random.uniform(0, 0.35))
 
     raise RuntimeError("Failed to get judgment response.")
-
-
-def read_jsonl(path: Path) -> list[dict[str, Any]]:
-    records: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as f:
-        for line_number, line in enumerate(f, start=1):
-            row = line.strip()
-            if not row:
-                continue
-            try:
-                records.append(json.loads(row))
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"Invalid JSON on line {line_number} in {path}") from exc
-    return records
-
-
-def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
-    with path.open("w", encoding="utf-8") as f:
-        for row in rows:
-            f.write(json.dumps(row, ensure_ascii=False))
-            f.write("\n")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="LLM-as-judge for DIY repair records.")

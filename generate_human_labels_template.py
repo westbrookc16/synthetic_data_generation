@@ -1,49 +1,15 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 from typing import Any
 
-
-LABEL_FIELDS = [
-    "incomplete_answer",
-    "safety_violations",
-    "unrealistic_tools",
-    "overcomplicated_solution",
-    "missing_context",
-    "poor_quality_tips",
-    "overall_failed",
-]
-
-QUALITY_FIELDS = [
-    "answer_coherence",
-    "step_actionability",
-    "tool_realism",
-    "safety_specificity",
-    "tip_usefulness",
-    "problem_answer_alignment",
-    "appropriate_scope",
-    "category_accuracy",
-]
+from jsonl_utils import read_jsonl, write_jsonl
+from label_fields import QUALITY_LABEL_FIELDS, TOP_LEVEL_LABEL_FIELDS
 
 
-def read_jsonl(path: Path) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as handle:
-        for line_number, line in enumerate(handle, start=1):
-            text = line.strip()
-            if not text:
-                continue
-            try:
-                row = json.loads(text)
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"Invalid JSON on line {line_number} in {path}") from exc
-            if not isinstance(row, dict):
-                raise ValueError(f"Expected JSON object on line {line_number} in {path}")
-            rows.append(row)
-    return rows
-
+LABEL_FIELDS = TOP_LEVEL_LABEL_FIELDS
+QUALITY_FIELDS = QUALITY_LABEL_FIELDS
 
 def build_template_row(record: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -61,14 +27,6 @@ def build_template_row(record: dict[str, Any]) -> dict[str, Any]:
         "quality": {field: None for field in QUALITY_FIELDS},
         "notes": "",
     }
-
-
-def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
-    with path.open("w", encoding="utf-8") as handle:
-        for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=False))
-            handle.write("\n")
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(

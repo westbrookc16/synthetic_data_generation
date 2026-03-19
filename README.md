@@ -87,6 +87,14 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
+## Run tests
+
+Use explicit test discovery for this repository:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+```
+
 ## Environment variables
 
 Create a `.env` file in the project root:
@@ -223,16 +231,30 @@ If you want to review records manually and compare them with judge outputs:
    ```
 
 3. Fill in the label columns in `human_labels_review.csv`
+   - Use `0` for pass and `1` for fail
+   - Set `overall_failed = 1` if any top-level flag or quality metric is `1`
 4. Convert the labeled CSV back to JSONL:
 
    ```bash
    python convert_human_labels_csv_to_jsonl.py --input human_labels_review.csv --output human_labels.jsonl
    ```
 
+   To enforce completed labels and consistency checks during import:
+
+   ```bash
+   python convert_human_labels_csv_to_jsonl.py --input human_labels_review.csv --output human_labels.jsonl --strict
+   ```
+
 5. Optionally compare human labels with judge results:
 
    ```bash
    python compare_judgments.py --human-labels human_labels.jsonl --judge-results judge_results.jsonl
+   ```
+
+   You can also export spreadsheet-friendly reports:
+
+   ```bash
+   python compare_judgments.py --human-labels human_labels.jsonl --judge-results judge_results.jsonl --output-csv compare_report.csv --mismatches-csv compare_mismatches.csv
    ```
 
 Use `LABELING_GUIDE.md` for the rubric and consistency rules while labeling.

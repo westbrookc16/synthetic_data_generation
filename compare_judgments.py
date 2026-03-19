@@ -6,47 +6,11 @@ import json
 from pathlib import Path
 from typing import Any
 
-
-TOP_LEVEL_LABEL_FIELDS = [
-    "incomplete_answer",
-    "safety_violations",
-    "unrealistic_tools",
-    "overcomplicated_solution",
-    "missing_context",
-    "poor_quality_tips",
-    "overall_failed",
-]
-
-QUALITY_LABEL_FIELDS = [
-    "answer_coherence",
-    "step_actionability",
-    "tool_realism",
-    "safety_specificity",
-    "tip_usefulness",
-    "problem_answer_alignment",
-    "appropriate_scope",
-    "category_accuracy",
-]
-
-LABEL_FIELDS = TOP_LEVEL_LABEL_FIELDS + [f"quality.{field}" for field in QUALITY_LABEL_FIELDS]
+from jsonl_utils import read_jsonl
+from label_fields import COMPARISON_LABEL_FIELDS, QUALITY_LABEL_FIELDS, TOP_LEVEL_LABEL_FIELDS
 
 
-def read_jsonl(path: Path) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as file:
-        for line_number, line in enumerate(file, start=1):
-            text = line.strip()
-            if not text:
-                continue
-            try:
-                row = json.loads(text)
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"Invalid JSON on line {line_number} in {path}") from exc
-            if not isinstance(row, dict):
-                raise ValueError(f"Expected JSON object on line {line_number} in {path}")
-            rows.append(row)
-    return rows
-
+LABEL_FIELDS = COMPARISON_LABEL_FIELDS
 
 def require_binary_field(row: dict[str, Any], field: str, path: Path, record_id: int) -> int:
     value = row.get(field)
@@ -75,14 +39,26 @@ def normalize_row(row: dict[str, Any], path: Path) -> tuple[int, dict[str, int]]
     return record_id, normalized_row
 
 
-def normalize_rows(path: Path) -> dict[int, dict[str, int]]:
+def normalize_rows(rows: list[dict[str, Any]], path: Path) -> dict[int, dict[str, int]]:
     normalized: dict[int, dict[str, int]] = {}
-    for row in read_jsonl(path):
+    for row in rows:
         record_id, normalized_row = normalize_row(row, path)
         if record_id in normalized:
             raise ValueError(f"Duplicate id={record_id} found in {path}")
         normalized[record_id] = normalized_row
     return normalized
+
+
+def index_rows_by_id(rows: list[dict[str, Any]], path: Path) -> dict[int, dict[str, Any]]:
+    indexed: dict[int, dict[str, Any]] = {}
+    for row in rows:
+        record_id = row.get("id")
+        if not isinstance(record_id, int):
+            raise ValueError(f"Every record in {path} must have an integer 'id'. Got: {record_id!r}")
+        if record_id in indexed:
+            raise ValueError(f"Duplicate id={record_id} found in {path}")
+        indexed[record_id] = row
+    return indexed
 
 
 def safe_divide(numerator: int, denominator: int) -> float:
@@ -128,7 +104,10 @@ def compute_field_metrics(
 
 
 def collect_mismatches(
-    human_rows: dict[int, dict[str, int]], judge_rows: dict[int, dict[str, int]], ids: list[int]
+    human_rows: dict[int, dict[str, int]],
+    judge_rows: dict[int, dict[str, int]],
+    human_source_rows: dict[int, dict[str, Any]],
+    ids: list[int],
 ) -> list[dict[str, Any]]:
     mismatches: list[dict[str, Any]] = []
     for record_id in ids:
@@ -139,6 +118,8 @@ def collect_mismatches(
             mismatches.append(
                 {
                     "id": record_id,
+                    "category": human_source_rows[record_id].get("category", ""),
+                    "question": human_source_rows[record_id].get("question", ""),
                     "fields": differing_fields,
                     "human": {field: human_rows[record_id][field] for field in LABEL_FIELDS},
                     "judge": {field: judge_rows[record_id][field] for field in LABEL_FIELDS},
@@ -200,18 +181,22 @@ def write_csv_report(path: Path, summary: dict[str, Any]) -> None:
 
 
 def write_mismatches_csv_report(path: Path, summary: dict[str, Any]) -> None:
-    fieldnames = ["id", "field", "human_value", "judge_value"]
+    fieldnames = ["id", "category", "question", "field", "human_value", "judge_value"]
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         for mismatch in summary["mismatches"]:
             record_id = mismatch["id"]
+            category = mismatch.get("category", "")
+            question = mismatch.get("question", "")
             human_values = mismatch["human"]
             judge_values = mismatch["judge"]
             for field in mismatch["fields"]:
                 writer.writerow(
                     {
                         "id": record_id,
+                        "category": category,
+                        "question": question,
                         "field": field,
                         "human_value": human_values[field],
                         "judge_value": judge_values[field],
@@ -266,8 +251,11 @@ def main() -> None:
     if not judge_path.exists():
         raise FileNotFoundError(f"Judge results file not found: {judge_path}")
 
-    human_rows = normalize_rows(human_path)
-    judge_rows = normalize_rows(judge_path)
+    human_records = read_jsonl(human_path)
+    judge_records = read_jsonl(judge_path)
+    human_rows = normalize_rows(human_records, human_path)
+    judge_rows = normalize_rows(judge_records, judge_path)
+    human_source_rows = index_rows_by_id(human_records, human_path)
 
     shared_ids = sorted(set(human_rows) & set(judge_rows))
     if not shared_ids:
@@ -275,7 +263,7 @@ def main() -> None:
 
     missing_from_judge = sorted(set(human_rows) - set(judge_rows))
     missing_from_humans = sorted(set(judge_rows) - set(human_rows))
-    mismatches = collect_mismatches(human_rows, judge_rows, shared_ids)
+    mismatches = collect_mismatches(human_rows, judge_rows, human_source_rows, shared_ids)
     exact_matches = len(shared_ids) - len(mismatches)
 
     summary = {

@@ -81,6 +81,86 @@ class HumanLabelsCsvConversionTests(unittest.TestCase):
             write_csv(csv_path, [row])
             self.assertEqual(read_csv(csv_path), [row])
 
+    def test_read_csv_strict_rejects_blank_labels(self) -> None:
+        row = {
+            "id": 12,
+            "category": "appliance",
+            "prompt": "Full prompt text",
+            "question": "Why is my fridge warm?",
+            "equipment_problem": "Fridge not cooling",
+            "answer": "Clean the condenser coils and confirm the fan is running.",
+            "tools_required": ["vacuum", "coil brush"],
+            "steps": ["1. Unplug the fridge.", "2. Clean the condenser coils.", "3. Restore power and test."],
+            "safety_info": "Unplug the refrigerator before cleaning near moving parts.",
+            "tips": ["Photograph the panel before removing it."],
+            "incomplete_answer": None,
+            "safety_violations": 0,
+            "unrealistic_tools": 0,
+            "overcomplicated_solution": 0,
+            "missing_context": 0,
+            "poor_quality_tips": 0,
+            "overall_failed": 0,
+            "quality": {
+                "answer_coherence": 0,
+                "step_actionability": 0,
+                "tool_realism": 0,
+                "safety_specificity": 0,
+                "tip_usefulness": 0,
+                "problem_answer_alignment": 0,
+                "appropriate_scope": 0,
+                "category_accuracy": 0,
+            },
+            "notes": "",
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            csv_path = Path(tmp_dir) / "labels.csv"
+            write_csv(csv_path, [row])
+            with self.assertRaises(ValueError):
+                read_csv(csv_path, strict=True)
+
+    def test_read_csv_strict_rejects_inconsistent_overall_failed_and_missing_notes(self) -> None:
+        row = {
+            "id": 13,
+            "category": "plumbing",
+            "prompt": "System prompt...",
+            "question": "How do I fix a leaking shutoff valve?",
+            "equipment_problem": "Leaking shutoff valve",
+            "answer": "Tighten the packing nut slightly and replace the packing if needed.",
+            "tools_required": ["adjustable wrench", "bucket"],
+            "steps": [
+                "1. Turn off the main water supply.",
+                "2. Tighten the packing nut.",
+                "3. Test for leaks.",
+            ],
+            "safety_info": "Turn off the water supply before loosening fittings.",
+            "tips": ["Dry the area first so you can spot the leak source."],
+            "incomplete_answer": 0,
+            "safety_violations": 0,
+            "unrealistic_tools": 0,
+            "overcomplicated_solution": 0,
+            "missing_context": 0,
+            "poor_quality_tips": 1,
+            "overall_failed": 0,
+            "quality": {
+                "answer_coherence": 0,
+                "step_actionability": 0,
+                "tool_realism": 0,
+                "safety_specificity": 0,
+                "tip_usefulness": 0,
+                "problem_answer_alignment": 0,
+                "appropriate_scope": 0,
+                "category_accuracy": 0,
+            },
+            "notes": "",
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            csv_path = Path(tmp_dir) / "labels.csv"
+            write_csv(csv_path, [row])
+            with self.assertRaises(ValueError):
+                read_csv(csv_path, strict=True)
+
 
 if __name__ == "__main__":
     unittest.main()

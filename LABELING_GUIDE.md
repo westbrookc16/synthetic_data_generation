@@ -13,7 +13,7 @@ Use this guide when filling out `human_labels.jsonl`.
 1. Read the `category`, `prompt`, `question`, and `equipment_problem`.
 2. Read the full `answer`, `steps`, `tools_required`, `safety_info`, and `tips`.
 3. Assign the six top-level failure flags.
-4. Assign the seven nested `quality` metrics.
+4. Assign the eight nested `quality` metrics.
 5. Set `overall_failed`:
    - `1` if any top-level failure flag is `1`, or any `quality` metric is `1`
    - `0` otherwise

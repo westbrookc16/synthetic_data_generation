@@ -49,6 +49,8 @@ class CompareJudgmentsCsvReportTests(unittest.TestCase):
             "mismatches": [
                 {
                     "id": 14,
+                    "category": "appliance",
+                    "question": "Why is my dryer running but not heating?",
                     "fields": ["overall_failed", "quality.safety_specificity"],
                     "human": {
                         field: (0 if field != "quality.safety_specificity" else 0) for field in LABEL_FIELDS
@@ -59,6 +61,8 @@ class CompareJudgmentsCsvReportTests(unittest.TestCase):
                 },
                 {
                     "id": 24,
+                    "category": "plumbing",
+                    "question": "How do I stop a faucet from dripping?",
                     "fields": ["poor_quality_tips"],
                     "human": {field: 0 for field in LABEL_FIELDS},
                     "judge": {field: (1 if field == "poor_quality_tips" else 0) for field in LABEL_FIELDS},
@@ -77,18 +81,24 @@ class CompareJudgmentsCsvReportTests(unittest.TestCase):
         self.assertEqual(len(rows), 3)
         self.assertEqual(rows[0], {
             "id": "14",
+            "category": "appliance",
+            "question": "Why is my dryer running but not heating?",
             "field": "overall_failed",
             "human_value": "0",
             "judge_value": "1",
         })
         self.assertEqual(rows[1], {
             "id": "14",
+            "category": "appliance",
+            "question": "Why is my dryer running but not heating?",
             "field": "quality.safety_specificity",
             "human_value": "0",
             "judge_value": "1",
         })
         self.assertEqual(rows[2], {
             "id": "24",
+            "category": "plumbing",
+            "question": "How do I stop a faucet from dripping?",
             "field": "poor_quality_tips",
             "human_value": "0",
             "judge_value": "1",

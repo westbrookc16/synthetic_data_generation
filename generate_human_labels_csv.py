@@ -6,58 +6,13 @@ import json
 from pathlib import Path
 from typing import Any
 
-
-TOP_LEVEL_FIELDS = [
-    "incomplete_answer",
-    "safety_violations",
-    "unrealistic_tools",
-    "overcomplicated_solution",
-    "missing_context",
-    "poor_quality_tips",
-    "overall_failed",
-]
-
-QUALITY_FIELDS = [
-    "answer_coherence",
-    "step_actionability",
-    "tool_realism",
-    "safety_specificity",
-    "tip_usefulness",
-    "problem_answer_alignment",
-    "appropriate_scope",
-    "category_accuracy",
-]
-
-BASE_FIELDS = [
-    "id",
-    "category",
-    "prompt",
-    "question",
-    "equipment_problem",
-    "answer",
-    "tools_required",
-    "steps",
-    "safety_info",
-    "tips",
-]
+from jsonl_utils import read_jsonl
+from label_fields import BASE_RECORD_FIELDS, QUALITY_LABEL_FIELDS, REVIEW_CSV_FIELDS, TOP_LEVEL_LABEL_FIELDS
 
 
-def read_jsonl(path: Path) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    with path.open("r", encoding="utf-8") as handle:
-        for line_number, line in enumerate(handle, start=1):
-            text = line.strip()
-            if not text:
-                continue
-            try:
-                row = json.loads(text)
-            except json.JSONDecodeError as exc:
-                raise ValueError(f"Invalid JSON on line {line_number} in {path}") from exc
-            if not isinstance(row, dict):
-                raise ValueError(f"Expected JSON object on line {line_number} in {path}")
-            rows.append(row)
-    return rows
-
+TOP_LEVEL_FIELDS = TOP_LEVEL_LABEL_FIELDS
+QUALITY_FIELDS = QUALITY_LABEL_FIELDS
+BASE_FIELDS = BASE_RECORD_FIELDS
 
 def stringify(value: Any) -> str:
     if value is None:
@@ -83,9 +38,8 @@ def flatten_row(row: dict[str, Any]) -> dict[str, str]:
 
 
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
-    fieldnames = BASE_FIELDS + TOP_LEVEL_FIELDS + [f"quality_{field}" for field in QUALITY_FIELDS] + ["notes"]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=REVIEW_CSV_FIELDS)
         writer.writeheader()
         for row in rows:
             writer.writerow(flatten_row(row))
