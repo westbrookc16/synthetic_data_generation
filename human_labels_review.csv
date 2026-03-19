@@ -1,0 +1,1921 @@
+id,category,prompt,question,equipment_problem,answer,tools_required,steps,safety_info,tips,incomplete_answer,safety_violations,unrealistic_tools,overcomplicated_solution,missing_context,poor_quality_tips,overall_failed,quality_answer_coherence,quality_step_actionability,quality_tool_realism,quality_safety_specificity,quality_tip_usefulness,quality_problem_answer_alignment,quality_appropriate_scope,quality_category_accuracy,notes
+1,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[]",Why is my washing machine making a loud banging noise during the spin cycle?,Washing machine loud banging noise during spin cycle,"A loud banging noise during the spin cycle is often caused by an unbalanced load or worn suspension springs. First, stop the machine and redistribute the clothes evenly. If the problem persists, check the suspension springs for damage and replace them if necessary.","[""screwdriver"", ""wrench"", ""replacement suspension springs""]","[""1. Turn off and unplug the washing machine."", ""2. Open the washing machine door and redistribute the clothes evenly to balance the load."", ""3. Close the door and run a short spin cycle to see if the noise persists."", ""4. If the noise continues, unplug the machine and remove the back panel using a screwdriver."", ""5. Inspect the suspension springs for signs of wear or damage."", ""6. If damaged, use a wrench to remove and replace the suspension springs with new ones."", ""7. Reattach the back panel and plug the machine back in."", ""8. Run a test spin cycle to confirm the noise issue is resolved.""]",Always unplug the washing machine before attempting any repairs to prevent electrical shock. Use caution when handling heavy parts and sharp tools.,"[""Avoid overloading the washing machine to prevent unbalanced loads."", ""Use a stable and level surface for the washing machine to minimize vibrations."", ""Check the suspension springs annually for wear to catch problems early.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[]",How do I stop my bathroom sink from leaking underneath when I turn on the faucet?,Bathroom sink leaking under the sink when the faucet is turned on,"First, check if the leak is coming from the faucet connections or the drain pipe. Tighten any loose connections with a wrench. If the leak persists, you may need to replace the rubber gasket or washers inside the faucet or drain assembly. Turn off the water supply before disassembling anything. After replacing the faulty parts, reassemble and turn the water back on to check for leaks.","[""adjustable wrench"", ""plumber's tape"", ""bucket"", ""replacement washers or gasket""]","[""1. Turn off the water supply valves under the sink."", ""2. Place a bucket under the sink to catch any water."", ""3. Use the adjustable wrench to tighten any loose connections on the faucet and drain pipes."", ""4. If leaks continue, disassemble the faucet or drain to inspect washers and gaskets."", ""5. Replace any damaged washers or gaskets with new ones."", ""6. Reassemble the faucet or drain assembly."", ""7. Turn the water supply back on and check for leaks.""]",Ensure the water supply is turned off before disassembling plumbing components to prevent water damage and potential injury.,"[""Use plumber's tape on threaded connections to ensure a watertight seal."", ""Inspect washers and gaskets regularly to prevent leaks before they start."", ""Have a towel handy to clean up any minor water spills during the repair.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+3,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[]",How do I replace a faulty light switch that doesn't turn the light on or off?,"Light switch not functioning properly, preventing the light from turning on or off.","First, turn off the power at the circuit breaker to ensure safety. Remove the switch cover plate using a screwdriver. Unscrew the switch from the electrical box and gently pull it out to expose the wires. Note how the wires are connected, then disconnect them. Connect the new switch by attaching the wires to the corresponding terminals. Secure the switch back into the electrical box, replace the cover plate, and turn the power back on to test the new switch.","[""Screwdriver"", ""Voltage tester"", ""Replacement light switch""]","[""1. Turn off the power to the switch at the circuit breaker."", ""2. Use a screwdriver to remove the switch cover plate."", ""3. Unscrew the existing switch from the electrical box and pull it out to reveal the wiring."", ""4. Use a voltage tester to ensure no power is present."", ""5. Note the wiring configuration, then disconnect the wires from the old switch."", ""6. Attach the wires to the new switch terminals following the same configuration."", ""7. Secure the new switch into the electrical box and replace the cover plate."", ""8. Turn the circuit breaker back on and test the new switch operation.""]",Always ensure the power is off using a voltage tester before touching any wiring to avoid electrical shock.,"[""Label wires before disconnecting to remember their positions."", ""Take a photo of the wiring setup before removal for reference."", ""Use a voltage tester to double-check that the power is off before starting work.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+4,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[]","My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?",Dirty and clogged air vents reducing airflow and air quality.,"To clean your air vents and improve airflow, first turn off your HVAC system. Remove the vent covers using a screwdriver. Clean the covers with warm soapy water and a brush. Vacuum inside the vent ducts as far as possible using a vacuum with a hose attachment. Wipe the vent openings with a damp cloth to remove dust. Allow everything to dry before reinstalling the covers and turning the system back on.","[""Screwdriver"", ""Vacuum cleaner with hose attachment"", ""Brush"", ""Cloth""]","[""1. Turn off the HVAC system to ensure safety."", ""2. Use the screwdriver to remove the vent covers."", ""3. Soak the vent covers in warm soapy water and scrub with a brush to remove dust and grime."", ""4. Vacuum inside the vents using the hose attachment to remove dust and debris."", ""5. Wipe the vent openings with a damp cloth to clean remaining dust."", ""6. Allow the vent covers to dry completely before reinstalling."", ""7. Reinstall the vent covers and turn the HVAC system back on.""]",Always turn off your HVAC system before cleaning vents to avoid injury or damage. Use caution when removing vent covers to prevent damage to walls or vents.,"[""Wear a dust mask to avoid inhaling dust."", ""Regularly cleaning vents every 3-6 months helps maintain good airflow."", ""Use a flashlight to inspect inside the vents for heavy buildup or mold."", ""Consider professional duct cleaning if vents remain clogged after cleaning.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+5,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[]",How can I fix a sticking interior wooden door that won't close properly?,Interior wooden door sticking and not closing properly.,"To fix a sticking interior wooden door, you should first identify where the door is sticking. Common causes include swelling due to humidity or misalignment of the door frame. You can sand down the areas where the door rubs against the frame and then repaint or refinish the trimmed area to prevent further damage. If the door is misaligned, tightening or adjusting the hinges may help.","[""Sanding block or sandpaper"", ""Screwdriver"", ""Wood filler"", ""Paintbrush"", ""Paint or finish""]","[""1. Identify the areas where the door is sticking by slowly closing it and noting where it rubs."", ""2. Remove the door from its hinges using the screwdriver if necessary to make sanding easier."", ""3. Sand down the areas where the door sticks using a sanding block or sandpaper until the door fits properly in the frame."", ""4. Apply wood filler to any gouges or rough patches and let it dry as per instructions."", ""5. Repaint or refinish the sanded areas to match the door and protect the wood."", ""6. Rehang the door and test to ensure it closes smoothly."", ""7. Adjust hinge screws if necessary to improve alignment.""]",Wear safety goggles and a dust mask when sanding to avoid inhaling dust. Ensure the door is properly supported when removing it to prevent injury.,"[""Check door alignment before sanding to avoid unnecessary work."", ""Use fine-grit sandpaper for a smooth finish."", ""Apply paint or finish evenly to protect the wood from humidity.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+6,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?""
+]",What should I do if my dryer stops heating but still runs the drum?,Dryer runs but does not heat,"If your dryer drum is turning but it is not heating, the problem might be with the heating element, thermal fuse, or a faulty thermostat. Start by unplugging the dryer and checking the lint filter and vent for blockages. Then, use a multimeter to test the heating element and thermal fuse for continuity. Replace any defective parts. Reassemble and test the dryer for heating.","[""multimeter"", ""screwdriver"", ""replacement heating element or thermal fuse""]","[""1. Unplug the dryer and clean the lint filter and vent to ensure proper airflow."", ""2. Remove the dryer’s back panel using a screwdriver to access the heating element and thermal fuse."", ""3. Use a multimeter to test the heating element and thermal fuse for continuity."", ""4. Replace any faulty parts with new ones."", ""5. Reassemble the dryer and plug it back in."", ""6. Run a test cycle to ensure the dryer is heating properly.""]",Always unplug the dryer before attempting any repairs to avoid electric shock. Handle electrical components with care.,"[""Regularly clean the lint filter and dryer vent to prevent overheating and maintain efficiency."", ""If you’re unsure about using a multimeter, consider consulting a professional technician."", ""Keep replacement parts compatible with your dryer’s model number for best results.""]",0,0,0,0,,0,0,0,0,0,0,0,0,0,0,
+7,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?""
+]",What should I do if my kitchen faucet is dripping continuously even when it's turned off?,Dripping kitchen faucet,"A dripping kitchen faucet usually means there is a worn-out washer or cartridge that needs to be replaced. Start by shutting off the water supply to the faucet, then disassemble the faucet handle to access the cartridge or washer. Replace the faulty parts with new ones specific to your faucet model, reassemble, and turn the water back on to check if the dripping has stopped.","[""adjustable wrench"", ""screwdriver"", ""replacement washer or cartridge"", ""plumber's grease""]","[""1. Turn off the water supply valves under the sink."", ""2. Open the faucet to drain any remaining water."", ""3. Use a screwdriver to remove the handle of the faucet."", ""4. Use an adjustable wrench to remove the cartridge or access the washer."", ""5. Inspect the cartridge or washer and replace it with a new one if worn out."", ""6. Apply plumber's grease on the new parts before reassembling."", ""7. Reassemble the faucet and turn on the water supply."", ""8. Check if the dripping has stopped.""]",Always ensure the water supply is turned off before disassembling the faucet to avoid water damage and potential injury.,"[""Take a photo of the assembly before disassembling to help with reassembly."", ""Use manufacturer-specific replacement parts to ensure proper fit and function."", ""If the drip persists after replacement, consider checking the valve seat for damage.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+8,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?""
+]",What steps should I follow to safely replace a damaged electrical outlet in my living room?,Damaged electrical outlet not functioning properly,"To replace a damaged electrical outlet, first turn off the power to the outlet from the circuit breaker. Use a voltage tester to confirm the power is off. Remove the outlet cover and unscrew the old outlet. Note the wiring configuration, then disconnect the wires. Connect the wires to the new outlet terminals, matching the wiring configuration. Secure the outlet into the box, replace the cover, and turn the power back on. Test the outlet to ensure it works correctly.","[""screwdriver"", ""voltage tester"", ""wire stripper""]","[""1. Turn off the power to the outlet at the circuit breaker."", ""2. Use a voltage tester to ensure no electrical current is present."", ""3. Remove the outlet cover plate using a screwdriver."", ""4. Unscrew and carefully pull out the old outlet from the electrical box."", ""5. Note the wire connections and disconnect the wires from the old outlet."", ""6. Connect the wires to the new outlet, matching the original connections."", ""7. Secure the new outlet into the electrical box with screws."", ""8. Replace the outlet cover plate."", ""9. Turn the power back on at the circuit breaker."", ""10. Test the new outlet with a device or outlet tester to confirm proper operation.""]","Always ensure power is turned off at the breaker before handling electrical wiring. Use a voltage tester to confirm no live current is present. If uncertain, consult a professional electrician.","[""Take a photo of the existing wiring before disconnecting to help with reinstallation."", ""Use wire strippers to cleanly strip wires if needed for a good connection."", ""Do not force wires onto terminals if they do not fit; check for correct size and type.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+9,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?""
+]",The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?,Musty smell in HVAC vents,"To fix the musty smell coming from your HVAC vents, start by checking and changing the air filter, as a dirty filter often causes odors. Then, clean the vents and ducts to remove dust and mold buildup. If the smell persists, inspect the condensate drain for clogs or stagnation and clean it. Finally, consider using an HVAC vent cleaner spray or deodorizer.","[""Screwdriver"", ""Vacuum cleaner with brush attachment"", ""Replacement air filter"", ""Cleaning cloths"", ""HVAC vent cleaner spray""]","[""1. Turn off the HVAC system and open the vents using a screwdriver if needed."", ""2. Remove and inspect the air filter; replace it if dirty."", ""3. Use a vacuum cleaner with a brush attachment to clean dust and debris from the vents."", ""4. Wipe down vent surfaces with cleaning cloths to remove any mold or residue."", ""5. Check the condensate drain for clogs; clean it if necessary."", ""6. Optionally, spray an HVAC vent cleaner or deodorizer into the vents before closing them."", ""7. Turn the system back on and monitor if the smell has improved.""]",Always turn off the HVAC system and disconnect power before performing maintenance to avoid electric shock or injury. Use gloves and a mask if dealing with mold or dust to prevent irritation.,"[""Replace air filters regularly every 1-3 months depending on usage."", ""Keep humidity levels low to prevent mold growth in vents."", ""Schedule professional duct cleaning if odors persist despite cleaning efforts.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+10,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?""
+]",How do I repair a small hole in my drywall caused by a doorknob?,Small hole in drywall from doorknob impact.,"To repair a small hole in drywall caused by a doorknob, you need to clean the hole, apply a patch if necessary, use joint compound to fill and smooth the area, sand it once dry, and then repaint to match the wall.","[""putty knife"", ""sandpaper"", ""drywall patch (optional)"", ""joint compound"", ""paint"", ""paintbrush or roller""]","[""1. Remove any loose drywall around the hole to create a clean edge."", ""2. If the hole is larger than about 1/2 inch, apply a drywall patch over it."", ""3. Use a putty knife to apply joint compound over the hole or patch, feathering the edges to blend with the wall."", ""4. Let the compound dry completely, then sand smooth with fine-grit sandpaper."", ""5. Wipe away dust and apply paint to match the surrounding wall.""]",Wear a dust mask when sanding to avoid inhaling drywall dust. Work in a well-ventilated area when painting.,"[""If the hole is very small, you might skip the patch and fill directly with joint compound."", ""Apply multiple thin layers of joint compound for best results, allowing each to dry before applying the next."", ""Use a putty knife with a flexible blade for smoother application.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?""
+]",How can I fix a refrigerator that is running but not cooling properly?,Refrigerator running but not cooling properly,"First, check the condenser coils and clean them if they are dirty. Then, inspect the door seals for any damage or gaps which might be letting cold air escape. Next, ensure the thermostat is set to the correct temperature. Finally, check if the evaporator fan inside the fridge is running when the door is closed. If these steps do not fix the problem, the issue may be with the compressor or refrigerant, which requires a professional technician.","[""Screwdriver"", ""Vacuum cleaner with brush attachment"", ""Soft cloth"", ""Thermometer""]","[""1. Unplug the refrigerator from the power source."", ""2. Locate the condenser coils, usually at the back or underneath, and clean them using a vacuum cleaner with a brush attachment."", ""3. Inspect the door seals carefully for any cracks or gaps; replace if necessary."", ""4. Set the thermostat inside the fridge to the recommended temperature (usually around 37°F or 3°C)."", ""5. Listen for the evaporator fan inside the fridge to ensure it runs when the door is closed; if not, consider replacing the fan motor or contacting a technician."", ""6. Plug the refrigerator back in and monitor the temperature over several hours.""]",Always unplug the refrigerator before inspecting or cleaning any internal components to avoid electrical shock. Handle components gently to avoid damage.,"[""Regularly clean condenser coils every 6 months to maintain efficiency."", ""Check door seals frequently as damaged seals can cause cooling issues."", ""Keep the fridge stocked but not overcrowded to allow proper air circulation.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+12,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?""
+]",What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?,Slow draining bathroom sink due to clogged drain,"To fix a clogged bathroom sink drain where water is draining slowly, you should first remove any visible debris from the drain opening. Then use a plunger to try to dislodge the clog. If that doesn't work, use a drain snake to reach and break up the blockage. Finally, flush the drain with hot water to clear out any remaining residue.","[""plunger"", ""drain snake"", ""bucket"", ""wrench""]","[""1. Clear any visible debris around the drain opening."", ""2. Place a plunger over the drain and plunge vigorously several times to try and dislodge the clog."", ""3. If plunging doesn't work, insert a drain snake into the drain and rotate it to break up the clog."", ""4. Remove the drain snake and dispose of any debris it brings up."", ""5. Run hot water down the drain to flush away any remaining clog material.""]","Wear gloves to protect your hands from bacteria and debris. If using chemical drain cleaners, ensure proper ventilation and follow product instructions carefully to avoid chemical burns.","[""Try using boiling water before plunging to loosen grease and debris."", ""Avoid using harsh chemical cleaners frequently as they can damage pipes."", ""Regularly clean the drain with baking soda and vinegar to prevent buildup.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+13,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?""
+]",What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?,Installing a new ceiling light fixture with existing wiring,"To install a new ceiling light fixture safely, first turn off the power at the circuit breaker. Remove any existing fixture, then connect the new fixture wires to the corresponding house wires (black to black, white to white, and ground to ground). Secure the fixture to the mounting bracket and attach the light bulbs. Finally, turn the power back on and test the fixture.","[""Voltage tester"", ""Screwdriver"", ""Wire stripper"", ""Ladder"", ""Pliers"", ""Electrical tape""]","[""1. Turn off the power to the circuit at the breaker panel."", ""2. Use a voltage tester to confirm that power is off to the wires."", ""3. Remove the old fixture by unscrewing it from the mounting bracket and disconnecting the wires."", ""4. Prepare the new fixture by assembling parts as per manufacturer instructions."", ""5. Connect the new fixture wires to the corresponding house wires: black to black (hot), white to white (neutral), and green or bare copper to ground."", ""6. Secure the fixture to the mounting bracket and mount it to the ceiling."", ""7. Install the bulbs and attach any covers or shades."", ""8. Turn the power back on at the breaker and test the light fixture to ensure it works properly.""]",Always ensure the power is off at the breaker and verify with a voltage tester before touching any wiring to prevent electric shock.,"[""Label wires before disconnecting the old fixture to remember connections."", ""Use wire nuts and electrical tape to secure wire connections."", ""If the fixture is heavy, have someone assist with holding it while wiring."", ""Check the fixture's weight capacity for your ceiling junction box before installation.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+14,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?""
+]",I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?,Uneven heating and cooling in rooms,"Uneven heating and cooling can be caused by blocked vents, dirty filters, or issues with your thermostat settings. To troubleshoot, first check and clean any obstructed vents. Replace the HVAC filter if it's dirty. Ensure your thermostat is set to a consistent temperature. If problems persist, balancing dampers in the ductwork may need adjustment, or professional help might be required.","[""Screwdriver"", ""Vacuum cleaner with brush attachment"", ""Replacement air filter""]","[""1. Inspect all air vents in the house and remove any objects blocking airflow."", ""2. Use a vacuum cleaner with a brush attachment to clean dust and debris from vents and registers."", ""3. Turn off the HVAC system and replace the air filter if it appears dirty or clogged."", ""4. Check the thermostat settings to ensure they are consistent and appropriate for your desired temperature."", ""5. Locate the ductwork dampers and adjust them to balance airflow between rooms if accessible."", ""6. Turn the HVAC system back on and monitor the temperature in different rooms for improvement.""]",Always turn off the HVAC system before replacing filters or performing any maintenance to avoid injury or damage to the system.,"[""Regularly replace air filters every 1-3 months depending on usage and air quality."", ""Keep furniture and curtains clear of vents to ensure proper airflow."", ""If adjusting dampers, do so gradually and test changes before finalizing.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+15,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?""
+]",What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?,Warped exterior wooden door causing poor sealing against the frame,"To fix a warped exterior wooden door that doesn't seal properly, first identify the warped areas. Then, sand down the warped sections carefully to make the door fit better. If the warping is severe, you might need to plane the door or use weatherstripping to improve the seal. Finally, repaint or reseal the door to protect it from further damage.","[""sandpaper"", ""hand planer"", ""weatherstripping"", ""paintbrush"", ""sealant"", ""screwdriver""]","[""1. Remove the door from its hinges using a screwdriver and place it on a flat surface."", ""2. Inspect the door to identify warped areas."", ""3. Use sandpaper to sand down minor warped spots, or a hand planer for more severe warping."", ""4. Test fit the door against the frame frequently to check progress."", ""5. Apply weatherstripping around the edges to improve sealing if needed."", ""6. Repaint or reseal the door surface to protect it from moisture."", ""7. Rehang the door and check for proper closing and sealing.""]",Wear safety goggles and a dust mask when sanding or planing the door to protect from dust and debris.,"[""Try to work in a well-ventilated area when sanding and painting."", ""Use a damp cloth to clean dust off the door before painting."", ""If the door is heavily warped, consider consulting a professional for replacement options.""]",0,0,0,0,0,0,0,0,0,,0,,0,0,0,
+16,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?""
+]",How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?,Dishwasher fills with water but does not drain at the end of the cycle.,"First, check the drain hose for any kinks or clogs and ensure it is properly connected. Next, inspect the dishwasher drain pump for debris or damage that might prevent it from working. If the drain pump is faulty, it may need to be replaced. Also, examine the air gap (if present) for blockages. Finally, test the drain solenoid and timers to ensure they are functioning correctly.","[""Screwdriver"", ""Pliers"", ""Multimeter"", ""Towel""]","[""1. Disconnect the dishwasher from power and water supply."", ""2. Remove the lower dish rack and inspect the drain area for debris."", ""3. Check and clear any clogs in the drain hose."", ""4. Remove the access panel to reach the drain pump and inspect for blockages."", ""5. Use a multimeter to test the drain pump for continuity."", ""6. Clear or replace the drain pump if damaged."", ""7. Check the air gap or garbage disposal connection for blockages."", ""8. Reassemble all parts and test run the dishwasher to verify the problem is resolved.""]",Always unplug the dishwasher and turn off the water supply before beginning any repair to avoid electrical shock or water damage.,"[""Use towels to soak up any water spills during the repair."", ""Take pictures during disassembly to help with reassembly."", ""Regularly clean the dishwasher filter and drain to prevent future clogs.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+17,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?""
+]",What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?,Leaking shower valve causing continuous dripping,"To fix a leaking shower valve that drips when off, you need to replace the valve cartridge inside the shower valve assembly. First, turn off the water supply to the shower, then remove the handle and escutcheon plate to access the cartridge. Take out the old cartridge and install a new one that matches your valve model. Reassemble the handle and plate, then turn the water back on to test for leaks.","[""adjustable wrench"", ""screwdriver"", ""replacement valve cartridge"", ""plumber's grease"", ""cloth""]","[""1. Turn off the water supply to the shower at the main valve."", ""2. Remove the shower handle by loosening the screws with a screwdriver."", ""3. Take off the escutcheon plate to expose the valve cartridge."", ""4. Use an adjustable wrench to remove the old valve cartridge."", ""5. Apply plumber's grease to the new cartridge and insert it into the valve body."", ""6. Reattach the escutcheon plate and handle, securing with screws."", ""7. Turn the water supply back on and check if the dripping has stopped.""]",Always ensure the water supply is fully turned off before disassembling plumbing fixtures to prevent water damage and personal injury.,"[""Take a picture of the valve assembly before disassembly to help with reassembly."", ""Use plumber's grease on the new cartridge to ensure smooth operation and prevent leaks."", ""If unsure of the valve model, take the old cartridge to the hardware store to find an exact replacement.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+18,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?""
+]",How can I fix a kitchen outlet that sparks when plugging in appliances?,Sparking kitchen outlet,"To fix a kitchen outlet that sparks, first turn off the power at the circuit breaker. Remove the outlet cover and test for voltage to ensure power is off. Inspect the outlet for signs of damage or loose wiring. Tighten any loose wires and replace the outlet if damaged. Reassemble and turn the power back on to test.","[""screwdriver"", ""voltage tester"", ""needle-nose pliers"", ""replacement outlet""]","[""1. Turn off power to the outlet at the circuit breaker."", ""2. Remove the outlet cover with a screwdriver."", ""3. Use a voltage tester to verify the power is off."", ""4. Inspect the outlet for damage or loose wires."", ""5. Tighten any loose wire connections with needle-nose pliers."", ""6. Replace the outlet if it shows signs of burning or damage."", ""7. Reattach the outlet cover and restore power at the breaker."", ""8. Test the outlet by plugging in an appliance.""]",Always ensure the power is off before working on electrical outlets to avoid shocks or injury.,"[""Label the circuit breaker before turning it off to avoid confusion."", ""Use a voltage tester on both the outlet terminals and the wires."", ""If unsure about wiring or damage, consult a professional electrician.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+19,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?""
+]",The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?,Thermostat error message causing HVAC system not to start,"To troubleshoot a thermostat error preventing your HVAC from turning on, first check the thermostat's batteries and replace them if low. Ensure it is properly connected to the HVAC system and that its wiring is intact. Reset the thermostat to factory settings, then reprogram it according to your HVAC system. If the problem persists, inspect the HVAC system's breaker or fuse to make sure power is supplied. If none of these steps work, the thermostat may need to be replaced or serviced by a professional.","[""Screwdriver"", ""Multimeter"", ""Replacement batteries""]","[""1. Remove the thermostat cover and check the batteries; replace if they are weak or dead."", ""2. Inspect thermostat wiring for any loose or damaged connections."", ""3. Reset the thermostat to factory settings and reprogram it according to your HVAC manual."", ""4. Check the HVAC system's circuit breaker or fuse to ensure it has power."", ""5. If issues persist, consider replacing the thermostat or contacting a professional for repair.""]",Always turn off power to the HVAC system at the breaker before inspecting wiring to avoid electrical shock. Handle batteries and tools carefully.,"[""Use a multimeter to test thermostat wiring continuity for better diagnostics."", ""Keep the thermostat manual handy for accurate programming instructions."", ""Regularly check thermostat batteries every six months to prevent unexpected failures.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+20,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?""
+]",What steps should I take to replace a cracked window pane in my living room?,Cracked window pane,"To replace a cracked window pane, first carefully remove the broken glass while wearing protective gloves. Next, remove the old glazing putty and any remaining glass fragments. Measure the window opening and purchase a new glass pane cut to size. Apply fresh glazing putty around the window frame, set the new glass pane in place, and press the putty firmly to seal it. Finally, smooth the putty with a putty knife and allow it to cure according to manufacturer's instructions.","[""Protective gloves"", ""Putty knife"", ""Glazing points"", ""Measuring tape"", ""Glass pane"", ""Glazing putty""]","[""1. Wear protective gloves and carefully remove the cracked glass pieces from the window frame."", ""2. Remove old glazing putty and any remaining glass fragments from the frame."", ""3. Measure the window opening accurately and purchase a new glass pane cut to size."", ""4. Apply a layer of fresh glazing putty around the window frame."", ""5. Position the new glass pane onto the frame and press it firmly into the putty."", ""6. Secure the glass with glazing points if necessary, then apply more putty over the edges to seal it."", ""7. Smooth the glazing putty with a putty knife and allow it to cure as per the manufacturer's instructions.""]",Always wear protective gloves and eye protection when handling broken glass to prevent injury. Handle glass pieces carefully and dispose of broken glass safely.,"[""Use glazing points to help hold the glass securely in place."", ""Take accurate measurements before buying replacement glass to avoid multiple trips."", ""Apply putty in warm, dry weather for best curing results.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+21,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?"",
+  ""How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?""
+]","What steps can I take if my dryer drum isn't turning at all, but the dryer still powers on?",Dryer drum not turning while dryer powers on,"If your dryer powers on but the drum doesn't turn, the issue may be due to a broken belt, a faulty drum roller, or a seized motor. First, unplug the dryer to ensure safety. Remove the dryer drum or the front panel to access the belt and rollers. Inspect the belt for signs of wear or breakage; replace if necessary. Check the drum rollers for damage or if they are stuck, and replace them if needed. If the belt and rollers are fine, test the motor for any issues. Reassemble the dryer and test to confirm the drum turns properly.","[""Screwdriver"", ""Socket wrench"", ""Multimeter"", ""Replacement belt (if needed)"", ""Replacement drum rollers (if needed)""]","[""1. Unplug the dryer from the power source to ensure safety."", ""2. Remove the dryer drum or front panel to access internal components."", ""3. Inspect the drive belt for signs of breakage or wear; replace if damaged."", ""4. Check the drum rollers for damage or if they are stuck; replace if necessary."", ""5. Test the motor with a multimeter to verify it is functioning properly."", ""6. Reassemble the dryer and plug it back in."", ""7. Run the dryer to check if the drum turns normally.""]",Always unplug the dryer before beginning any repairs to prevent electrical shock. Handle sharp edges inside the dryer carefully to avoid cuts.,"[""Keep track of screws and small parts by placing them in a container."", ""Refer to your dryer's manual for specific part numbers and assembly instructions."", ""If unsure about electrical testing, consult a professional electrician or technician.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+22,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?"",
+  ""What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?""
+]",How can I repair a toilet that keeps running after flushing and doesn’t stop on its own?,Toilet continuously running after flushing,"The likely cause is a faulty flapper valve or improper float adjustment inside the toilet tank. To fix this, you will need to replace the flapper or adjust the float to stop the water flow at the correct level. This will stop the toilet from continuously running after a flush.","[""Adjustable wrench"", ""Sponge"", ""Bucket"", ""Replacement flapper valve (if needed)""]","[""1. Turn off the water supply valve located behind the toilet."", ""2. Flush the toilet to empty the tank and remove excess water with a sponge or towel."", ""3. Inspect the flapper valve at the bottom of the tank for wear or damage; replace it if necessary."", ""4. Check the float arm and adjust it so the water shuts off at the proper fill level."", ""5. Turn the water supply back on and test the toilet to ensure it stops running after the flush.""]",Always turn off the water supply before working inside the toilet tank to avoid accidental flooding. Use a bucket and sponge to manage water spills and avoid slip hazards.,"[""Take a photo of the tank assembly before disassembling to remember how parts fit together."", ""Use a replacement flapper compatible with your toilet model."", ""Adjust the float slowly and test flushes in between to avoid overfilling the tank.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+23,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?"",
+  ""How can I fix a kitchen outlet that sparks when plugging in appliances?""
+]",How can I troubleshoot and fix a bathroom outlet that has stopped working but other outlets in the room work fine?,Bathroom outlet not working while others work,"First, check if the outlet is controlled by a GFCI outlet elsewhere in the bathroom or nearby. Press the reset button on the GFCI. If it doesn't reset, or there is no GFCI outlet, turn off power, remove the outlet cover, and inspect for loose wiring. Tighten any loose connections. Replace the outlet if it appears damaged. Finally, restore power and test the outlet.","[""Screwdriver"", ""Voltage tester"", ""Wire stripper""]","[""1. Identify if the outlet is connected to a GFCI outlet elsewhere and press the reset button on the GFCI."", ""2. Turn off the power to the outlet at the circuit breaker panel."", ""3. Remove the outlet cover and use a voltage tester to ensure power is off."", ""4. Inspect wiring for loose connections and tighten if necessary."", ""5. Replace the outlet if any damage is found."", ""6. Replace the outlet cover and turn power back on."", ""7. Test the outlet to confirm it is working.""]",Always turn off power at the circuit breaker before working on electrical outlets and use a voltage tester to confirm no power is present. Avoid touching bare wires and keep hands dry.,"[""Label circuit breakers before turning off to avoid confusion."", ""Use outlet testers to quickly diagnose wiring issues."", ""Replace older two-prong outlets with three-prong grounded outlets for safety if possible.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+24,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?"",
+  ""The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?""
+]","My HVAC system has suddenly stopped blowing air from the vents altogether, even though the system seems to be running. What could be causing this and how can I fix it?",HVAC system running with no airflow from vents,"If your HVAC system is running but no air is coming from the vents, possible causes include a clogged air filter, a blower motor failure, or a tripped circuit breaker for the blower. First, check and replace the air filter if it is dirty. If that doesn't work, inspect the blower motor and ensure it is receiving power. Finally, check your home's electrical panel to reset any tripped breakers related to the HVAC blower.","[""Screwdriver"", ""Replacement air filter"", ""Flashlight"", ""Multimeter""]","[""1. Turn off the HVAC system and locate the air filter, typically near the return air vent or furnace."", ""2. Remove the air filter and check if it is dirty or clogged; replace it with a new one if necessary."", ""3. Turn the HVAC system back on and check if air is blowing from the vents."", ""4. If no air flows, turn off the system and access the blower motor housing."", ""5. Use a flashlight to inspect the blower motor for any visible signs of damage or loose wires."", ""6. Use a multimeter to check for electrical power to the blower motor."", ""7. If there is no power, check your home's circuit breaker panel for any tripped breakers and reset them if found."", ""8. If the blower motor is powered but not running, it may need professional repair or replacement.""]",Always turn off power to the HVAC system before inspecting or replacing parts to avoid electrical shock or injury. Use caution when working near electrical components and consult a professional if unsure.,"[""Replace air filters regularly every 1-3 months to maintain airflow."", ""Keep the area around the furnace and blower motor clean to prevent dust buildup."", ""If you are uncomfortable working with electrical components, call a professional HVAC technician."", ""Regular HVAC maintenance can help prevent blower and airflow issues.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+25,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?"",
+  ""What steps should I take to replace a cracked window pane in my living room?""
+]",My bathroom door squeaks loudly every time I open or close it. How can I fix this issue?,Squeaky door hinges causing loud noise when opening or closing the door,"To fix a squeaky bathroom door, you need to lubricate the hinges. First, clean the hinge pins by removing them if possible and wiping away old grease and dirt. Then, apply a lubricant such as WD-40 or silicone spray to the hinge pins and reassemble the hinge. This should stop the squeaking.","[""Screwdriver"", ""WD-40 or silicone spray lubricant"", ""Rag or cloth"", ""Hammer (optional)""]","[""1. Open the door and use a screwdriver to remove the hinge pins carefully if possible."", ""2. Clean the hinge pins and hinge barrels using a rag to remove old grease and dirt."", ""3. Apply WD-40 or silicone spray liberally on the hinge pins and inside the hinge barrels."", ""4. Reinsert the hinge pins back into place. Tap gently with a hammer if necessary to secure them."", ""5. Open and close the door a few times to distribute the lubricant evenly and check if the squeak is gone.""]",Be careful when removing hinge pins as they can fall and cause injury. Use tools properly and avoid inhaling lubricant fumes by working in a well-ventilated area.,"[""Use silicone spray for a longer-lasting lubricant effect compared to WD-40."", ""If the hinge pins are rusty or damaged, consider replacing them entirely."", ""Regular maintenance and lubrication of door hinges can prevent squeaking in the future.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+26,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?"",
+  ""How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?"",
+  ""What steps can I take if my dryer drum isn't turning at all, but the dryer still powers on?""
+]",What can I do if my washing machine leaks water from the bottom during the wash cycle?,Washing machine leaks water from the bottom during the wash cycle,"If your washing machine is leaking water from the bottom during the wash cycle, the likely issues are a damaged door seal, a loose or cracked hose, or a faulty water pump. First, unplug the machine and inspect the door seal for tears or debris. Next, check hoses for cracks or loose connections and tighten or replace them if needed. Finally, examine the water pump for damage or leaks and replace it if necessary.","[""Screwdriver"", ""Pliers"", ""Towel"", ""Bucket""]","[""1. Unplug the washing machine to ensure safety."", ""2. Place towels and a bucket under the washing machine to catch any leaking water."", ""3. Open the washing machine door and inspect the door seal for any tears, holes, or debris; clean or replace the seal if damaged."", ""4. Locate and inspect the water inlet and drain hoses for cracks, holes, or loose connections; tighten any loose clamps or replace hoses if damaged."", ""5. Access the water pump by removing the back panel using the screwdriver; check for cracks or water leaks and replace the pump if necessary."", ""6. Reassemble any removed panels and test the machine with a short cycle to confirm the leak is fixed.""]",Always unplug the washing machine before inspecting or repairing to prevent electric shock. Handle tools carefully and avoid contact with any water spill to reduce the risk of slipping or electrical hazards.,"[""Keep towels handy to quickly soak up water leaks during inspection."", ""Take pictures of hose connections before disassembly to help with reassembly."", ""If replacing parts, use manufacturer-recommended components for compatibility.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+27,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?"",
+  ""What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?"",
+  ""How can I repair a toilet that keeps running after flushing and doesn\u2019t stop on its own?""
+]",How can I fix a kitchen sink faucet that makes a loud screeching noise when I turn it on?,Noisy kitchen sink faucet due to worn out washers or cartridge,"The screeching noise from your kitchen sink faucet is usually caused by worn out or damaged washers or cartridges inside the faucet. To fix this, you need to disassemble the faucet, inspect the washers or cartridge, and replace the faulty parts. After replacement, reassemble the faucet and test for noise.","[""adjustable wrench"", ""screwdriver"", ""replacement washers or cartridge"", ""plumber's grease""]","[""1. Turn off the water supply to the sink."", ""2. Remove the handle of the faucet using a screwdriver or Allen wrench, depending on your faucet model."", ""3. Use an adjustable wrench to loosen and remove the packing nut and stem to access the washers or cartridge."", ""4. Inspect the washers or cartridge for signs of wear, cracks, or damage."", ""5. Replace the worn or damaged washers or cartridge with new ones."", ""6. Apply plumber's grease on the new washers or cartridge for smooth operation."", ""7. Reassemble the faucet by reversing the removal steps."", ""8. Turn on the water supply and test the faucet for noise.""]",Ensure the water supply is completely turned off before disassembling the faucet to prevent water damage. Use tools carefully to avoid injury.,"[""Take a photo of the faucet assembly before disassembly to help with reassembly."", ""Use plumber's grease to extend the life of washers and moving parts."", ""If unsure about the type of replacement parts, take the old part to a hardware store for matching.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+28,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?"",
+  ""How can I fix a kitchen outlet that sparks when plugging in appliances?"",
+  ""How can I troubleshoot and fix a bathroom outlet that has stopped working but other outlets in the room work fine?""
+]",How do I safely install a dimmer switch to replace a standard light switch in my bedroom?,Replacing a standard light switch with a dimmer switch.,"To install a dimmer switch, first turn off the power at the circuit breaker. Remove the existing switch cover and unscrew the switch from the box. Disconnect the wires from the old switch. Connect the wires to the dimmer switch according to the manufacturer's instructions, usually matching colors (black to black, white to white, ground to ground). Secure the dimmer switch back into the box, attach the cover plate, and turn the power back on. Test the dimmer to ensure it controls the light properly.","[""screwdriver"", ""voltage tester"", ""wire stripper"", ""electrical tape""]","[""1. Turn off power to the switch at the circuit breaker."", ""2. Remove the switch cover plate using a screwdriver."", ""3. Use a voltage tester to confirm no power is present at the switch."", ""4. Unscrew and carefully pull out the existing switch from the electrical box."", ""5. Disconnect the wires from the old switch, noting their positions."", ""6. Use the wire stripper to strip wire ends if necessary."", ""7. Connect the dimmer switch wires to the house wiring, matching colors as per instructions."", ""8. Secure the dimmer switch into the electrical box with screws."", ""9. Replace the switch cover plate."", ""10. Restore power at the circuit breaker and test the dimmer switch operation.""]","Always ensure the power is turned off at the circuit breaker before starting work to avoid electrical shock. Use a voltage tester to verify no current is present. If you are uncomfortable handling electrical wiring, consult a licensed electrician.","[""Label wires before disconnecting for easier reconnection."", ""Follow the dimmer switch manufacturer's wiring diagram closely."", ""Do not force wires into terminals; strip wires properly for secure connections."", ""Use electrical tape on wire nuts for added safety."", ""If the dimmer switch is not compatible with the type of bulbs, it may cause flickering or damage.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+29,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?"",
+  ""The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?"",
+  ""My HVAC system has suddenly stopped blowing air from the vents altogether, even though the system seems to be running. What could be causing this and how can I fix it?""
+]",How do I replace the clogged air filter in my HVAC system to restore proper airflow?,Clogged air filter reducing airflow,"To replace the clogged air filter, first turn off the HVAC system. Locate the filter compartment, remove the old filter, and dispose of it. Insert a new filter with the airflow arrows pointing in the correct direction, then close the compartment and turn the system back on.","[""Replacement air filter"", ""Screwdriver (if needed)""]","[""1. Turn off the HVAC system to ensure safety."", ""2. Locate the air filter compartment, usually found near the blower unit or return air duct."", ""3. Remove the old air filter by sliding it out carefully."", ""4. Check the size and type indicated on the old filter to purchase the correct replacement."", ""5. Insert the new air filter into the compartment, ensuring the airflow arrows point in the correct direction."", ""6. Close the filter compartment securely."", ""7. Turn the HVAC system back on and check for improved airflow.""]",Always turn off the HVAC system before handling the filter to avoid injury or damage to the system.,"[""Mark the date of filter replacement on the new filter to keep track of maintenance."", ""Consider using a high-quality filter to improve air quality and system efficiency."", ""Replace air filters every 1-3 months depending on usage and environment.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+30,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?"",
+  ""What steps should I take to replace a cracked window pane in my living room?"",
+  ""My bathroom door squeaks loudly every time I open or close it. How can I fix this issue?""
+]",How can I fix a drywall crack that has appeared above a window frame in my living room?,Drywall crack above window frame,"To fix a drywall crack above a window frame, start by cleaning the area and removing any loose debris. Then, apply drywall tape over the crack and cover it with joint compound. Sand the area smooth once the compound is dry, and finally repaint to match the wall.","[""putty knife"", ""drywall tape"", ""joint compound"", ""sandpaper"", ""paintbrush"", ""paint""]","[""1. Clean the cracked area and remove any loose drywall or debris."", ""2. Apply drywall tape over the crack to reinforce it."", ""3. Spread a layer of joint compound over the tape using a putty knife."", ""4. Allow the joint compound to dry completely, usually 24 hours."", ""5. Sand the dried compound smooth with sandpaper."", ""6. Wipe away dust and repaint the repaired area to match the surrounding wall.""]","Wear a dust mask when sanding to avoid inhaling drywall dust, and use proper ventilation when painting.","[""Use a wide putty knife for smoother application of joint compound."", ""Apply multiple thin layers of compound if needed to avoid lumps."", ""Match paint color closely for a seamless repair.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+31,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?"",
+  ""How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?"",
+  ""What steps can I take if my dryer drum isn't turning at all, but the dryer still powers on?"",
+  ""What can I do if my washing machine leaks water from the bottom during the wash cycle?""
+]",What should I do if my refrigerator's ice maker has stopped producing ice completely?,Refrigerator ice maker not producing ice,"First, check if the ice maker is turned on and the freezer temperature is set correctly. Then inspect the water supply line for any kinks or blockages. If those are fine, try resetting the ice maker by turning it off and on. If the problem persists, you may need to replace the water inlet valve or the ice maker assembly.","[""Screwdriver"", ""Multimeter"", ""Wrench""]","[""1. Confirm the ice maker is switched on and freezer temperature is between 0-5°F (-18 to -15°C)."", ""2. Examine the water supply line for kinks or blockages and straighten or clear if needed."", ""3. Reset the ice maker by turning it off for 5 minutes, then back on."", ""4. If no improvement, unplug the refrigerator and remove the ice maker cover to access the water inlet valve."", ""5. Use a multimeter to test the water inlet valve for continuity and replace if faulty."", ""6. Reassemble the ice maker and run a test cycle to verify ice production.""]",Always unplug the refrigerator before attempting any internal repairs to avoid electrical shock. Handle sharp components carefully.,"[""Keep the freezer door closed as much as possible to maintain proper temperature for ice production."", ""Regularly check and clean the water filter if your model has one to ensure good water flow."", ""If comfortable, consult your appliance manual for specific parts diagrams and instructions.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+32,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?"",
+  ""What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?"",
+  ""How can I repair a toilet that keeps running after flushing and doesn\u2019t stop on its own?"",
+  ""How can I fix a kitchen sink faucet that makes a loud screeching noise when I turn it on?""
+]",What is the process to repair a leaking pipe joint under my kitchen sink that causes water to pool on the cabinet floor?,Leaking pipe joint under kitchen sink causing water pooling,"To repair a leaking pipe joint under your kitchen sink, first turn off the water supply. Then, loosen and remove the leaking joint with a wrench. Clean the threads and apply plumber's tape or pipe joint compound before reinstalling the joint and tightening it securely. Finally, turn the water supply back on and check for leaks.","[""Adjustable wrench"", ""Plumber's tape"", ""Pipe joint compound"", ""Bucket"", ""Rags""]","[""1. Turn off the water supply to the kitchen sink."", ""2. Place a bucket under the leaking pipe joint to catch any residual water."", ""3. Use the adjustable wrench to loosen and remove the leaking pipe joint."", ""4. Clean the pipe threads thoroughly to remove old sealant or debris."", ""5. Wrap plumber's tape clockwise around the male threads or apply pipe joint compound."", ""6. Reattach and tighten the pipe joint securely with the wrench."", ""7. Turn the water supply back on and inspect for any leaks."", ""8. Wipe down the area and dry any residual water.""]",Ensure the water supply is completely turned off before starting to avoid water damage and slipping hazards. Use caution when handling tools to prevent injury.,"[""Use plumber's tape to create a watertight seal on threaded pipes."", ""Do not overtighten the joint to avoid damaging the threads."", ""Keep a bucket and rags handy to manage water spills during repair.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+33,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?"",
+  ""How can I fix a kitchen outlet that sparks when plugging in appliances?"",
+  ""How can I troubleshoot and fix a bathroom outlet that has stopped working but other outlets in the room work fine?"",
+  ""How do I safely install a dimmer switch to replace a standard light switch in my bedroom?""
+]",How can I replace a burnt electrical outlet in my home office safely?,Burnt electrical outlet,"To replace a burnt electrical outlet, first turn off the power at the circuit breaker to ensure safety. Remove the outlet cover plate and unscrew the burnt outlet from the electrical box. Carefully disconnect the wires from the old outlet, noting their positions. Connect the wires to the new outlet, matching the wire colors to the correct terminals (typically black to brass, white to silver, and green or bare wire to the ground screw). Secure the new outlet in the box, replace the cover plate, and turn the power back on to test the outlet.","[""screwdriver"", ""voltage tester"", ""needle-nose pliers""]","[""1. Turn off the power at the circuit breaker for the outlet you will be working on."", ""2. Use a voltage tester to confirm that the power is off at the outlet."", ""3. Remove the outlet cover plate with a screwdriver."", ""4. Unscrew and gently pull out the burnt outlet from the electrical box."", ""5. Take note of how the wires are connected, then disconnect them from the outlet."", ""6. Connect the wires to the new outlet, matching the wire colors to the correct terminals (black to brass, white to silver, green or bare to ground)."", ""7. Secure the new outlet into the electrical box and replace the outlet cover plate."", ""8. Turn the circuit breaker back on and test the outlet with a device or voltage tester.""]",Always ensure the power is off at the breaker before touching any wiring or outlets. Use a voltage tester to verify no electricity is flowing to prevent electric shock.,"[""Label the wires before disconnecting if you are unsure of their positions."", ""If the outlet box is damaged or charred, consider consulting a professional electrician."", ""Use outlets with built-in surge protection for added safety and equipment protection.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+34,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?"",
+  ""The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?"",
+  ""My HVAC system has suddenly stopped blowing air from the vents altogether, even though the system seems to be running. What could be causing this and how can I fix it?"",
+  ""How do I replace the clogged air filter in my HVAC system to restore proper airflow?""
+]","The air coming out of my vents feels weak and inconsistent, and I suspect there might be blockages or buildup inside the ductwork. How can I clean my air ducts to improve airflow and system efficiency?",Clogged or dirty air ducts causing weak and inconsistent airflow.,"To clean your air ducts, first turn off your HVAC system. Use a vacuum with a long hose attachment to remove dust and debris from vent openings. Then, use a brush or flexible cleaning tools to reach deeper into the ducts. For thorough cleaning, consider renting a duct cleaning vacuum or hiring a professional if the buildup is extensive. After cleaning, replace air filters to prevent future dust accumulation.","[""Vacuum cleaner with hose attachment"", ""Brush or flexible cleaning tool"", ""Flashlight"", ""Screwdriver"", ""New air filters""]","[""1. Turn off the HVAC system to ensure safety."", ""2. Remove vent covers using a screwdriver."", ""3. Vacuum dust and debris from vent openings and visible duct surfaces."", ""4. Use a brush or flexible tool to dislodge dust inside ducts."", ""5. Vacuum again to remove loosened debris."", ""6. Replace air filters with new ones to maintain airflow quality."", ""7. Reattach vent covers and turn the system back on to test airflow.""]",Always turn off the HVAC system and power supply before cleaning to avoid electrical hazards. Wear a mask and gloves to protect from dust and allergens.,"[""Regularly replace air filters to reduce dust buildup in ducts."", ""Consider professional duct cleaning every few years for optimal system performance."", ""Seal any visible duct leaks to improve airflow efficiency.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+35,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?"",
+  ""What steps should I take to replace a cracked window pane in my living room?"",
+  ""My bathroom door squeaks loudly every time I open or close it. How can I fix this issue?"",
+  ""How can I fix a drywall crack that has appeared above a window frame in my living room?""
+]",My bedroom door suddenly became very hard to open and close due to swelling from humidity. How can I fix this issue?,Swollen wooden door due to humidity causing it to stick in the frame.,"To fix a swollen door that is hard to open and close due to humidity, you need to reduce the swelling by sanding down the edges that rub against the frame, then seal the door properly to prevent future swelling.","[""sandpaper"", ""sanding block or electric sander"", ""paintbrush"", ""wood sealer or varnish"", ""screwdriver"", ""chisel""]","[""1. Remove the door from its hinges by unscrewing the hinge pins with a screwdriver."", ""2. Identify the areas where the door is sticking by inspecting the edges that rub against the frame."", ""3. Use sandpaper or an electric sander to carefully sand down the swollen edges to make them thinner and allow clearance."", ""4. If necessary, use a chisel to carefully shave off any wood that is deeply swollen or warped."", ""5. Sand the door edges smoothly and clean off the dust."", ""6. Apply a wood sealer or varnish to all edges of the door to protect it from moisture in the future."", ""7. Allow the sealer to dry fully as per the product instructions."", ""8. Rehang the door by placing it back on the hinges and checking for smooth operation.""]",Wear a dust mask and safety goggles while sanding to protect from wood dust. Work in a well-ventilated area when applying sealer.,"[""Check the humidity levels in your home and use a dehumidifier if necessary to prevent the door from swelling again."", ""Test sanding on a small hidden area first to avoid removing too much material."", ""Apply sealer to all edges of the door, including top and bottom, to fully protect against moisture.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?"",
+  ""How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?"",
+  ""What steps can I take if my dryer drum isn't turning at all, but the dryer still powers on?"",
+  ""What can I do if my washing machine leaks water from the bottom during the wash cycle?"",
+  ""What should I do if my refrigerator's ice maker has stopped producing ice completely?""
+]",What can I do if my washing machine stops mid-cycle and displays an error code?,Washing machine stops mid-cycle and displays error code,"First, unplug the washing machine to reset it. Check the user manual to identify the error code meaning. Common causes include a clogged drain pump filter or a faulty door lock. Inspect and clean the drain pump filter, then verify the door locks securely. If these steps don't resolve the issue, the problem may be with the control board or wiring, requiring professional service.","[""Screwdriver"", ""Towel"", ""Bucket""]","[""1. Unplug the washing machine from the power source to ensure safety and reset the system."", ""2. Locate and consult the user manual to interpret the specific error code displayed on the machine."", ""3. Open the drain pump filter access panel, usually located at the bottom front of the machine."", ""4. Place a towel and bucket underneath to catch any water, then slowly unscrew and remove the drain pump filter."", ""5. Clean the filter of any debris, lint, or blockages, then securely replace it."", ""6. Check that the washing machine door is closing and locking properly."", ""7. Plug the washing machine back in and start a test cycle to see if the error is resolved.""]",Always unplug the washing machine before inspecting or repairing internal parts to prevent electric shock. Use towels and buckets to catch water when opening the drain pump filter to avoid spills.,"[""Keep the user manual handy for quick reference to error codes and troubleshooting tips."", ""Regularly clean the drain pump filter every few months to prevent blockages."", ""If unfamiliar with electrical components, consult a professional technician to avoid damage or injury.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+37,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?"",
+  ""What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?"",
+  ""How can I repair a toilet that keeps running after flushing and doesn\u2019t stop on its own?"",
+  ""How can I fix a kitchen sink faucet that makes a loud screeching noise when I turn it on?"",
+  ""What is the process to repair a leaking pipe joint under my kitchen sink that causes water to pool on the cabinet floor?""
+]","Why does my outdoor garden hose connection keep leaking water when the hose is turned on, and how can I fix it?",Leaking outdoor garden hose connection,"The leak at your outdoor garden hose connection is likely due to a worn-out rubber washer inside the hose connector or a loose connection. To fix it, you need to turn off the water supply, disconnect the hose, inspect and replace the washer if damaged, then securely reconnect the hose and check for leaks.","[""Adjustable wrench"", ""Replacement rubber washer"", ""Teflon tape"", ""Bucket or towel""]","[""1. Turn off the outdoor water supply to the hose bib."", ""2. Unscrew the garden hose from the outdoor faucet using your hands or an adjustable wrench if it's tight."", ""3. Inspect the rubber washer inside the hose connector for cracks, flattening, or damage."", ""4. Remove the old washer and replace it with a new one of the same size."", ""5. Wrap Teflon tape around the threaded faucet spout to ensure a tight seal."", ""6. Screw the garden hose back onto the faucet, tightening securely but not excessively to avoid damage."", ""7. Turn the water supply back on and check the connection for any leaks."", ""8. If leaks persist, tighten the connection a bit more or inspect the faucet threads for damage.""]",Make sure the water supply is off before disconnecting the hose to avoid water spraying. Use caution when tightening connections to prevent stripping threads or damaging parts.,"[""Keep spare rubber washers handy for quick replacements."", ""Apply a small amount of silicone lubricant on the washer for a better seal."", ""Avoid overtightening to prevent damaging the hose or faucet threads."", ""Check the hose end fittings periodically for wear and tear to avoid leaks.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+38,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?"",
+  ""How can I fix a kitchen outlet that sparks when plugging in appliances?"",
+  ""How can I troubleshoot and fix a bathroom outlet that has stopped working but other outlets in the room work fine?"",
+  ""How do I safely install a dimmer switch to replace a standard light switch in my bedroom?"",
+  ""How can I replace a burnt electrical outlet in my home office safely?""
+]",What is the correct method to replace a three-way light switch that is malfunctioning in a hallway?,Malfunctioning three-way light switch in hallway,"To replace a malfunctioning three-way light switch, first turn off the power at the circuit breaker. Remove the old switch by unscrewing it from the wall box and disconnect the wires. Connect the wires to the corresponding terminals on the new three-way switch, ensuring the common wire is attached to the common terminal. Secure the switch back into the wall box and replace the cover plate. Finally, restore power and test the switch operation.","[""Screwdriver"", ""Voltage tester"", ""Wire stripper"", ""Needle-nose pliers""]","[""1. Turn off the power to the hallway light circuit at the main circuit breaker panel."", ""2. Use a voltage tester to confirm that the power is off at the switch."", ""3. Unscrew and remove the existing three-way switch from the wall box."", ""4. Carefully disconnect the wires from the old switch, noting their positions."", ""5. Connect the wires to the new three-way switch terminals, matching the common, traveler, and ground wires correctly."", ""6. Secure the switch into the wall box and attach the cover plate."", ""7. Turn the power back on at the breaker and test the switch functionality.""]",Always confirm power is off with a voltage tester before touching any wiring to avoid electrical shock. Handle wires carefully and ensure connections are secure.,"[""Label wires before removal to make reconnection easier."", ""Take a photo of the existing wiring setup for reference."", ""If unsure about wire identification, consult a professional electrician.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+39,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?"",
+  ""The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?"",
+  ""My HVAC system has suddenly stopped blowing air from the vents altogether, even though the system seems to be running. What could be causing this and how can I fix it?"",
+  ""How do I replace the clogged air filter in my HVAC system to restore proper airflow?"",
+  ""The air coming out of my vents feels weak and inconsistent, and I suspect there might be blockages or buildup inside the ductwork. How can I clean my air ducts to improve airflow and system efficiency?""
+]","My thermostat display is blank, and the HVAC system isn't responding to any inputs. What troubleshooting steps can I take to fix this issue?",Blank thermostat display and unresponsive HVAC controls,"A blank thermostat display often indicates a power issue or a problem with the thermostat itself. Start by checking the thermostat batteries if it uses them. Next, verify that the circuit breaker for the HVAC system is not tripped. You can also remove the thermostat from its base to inspect for loose wiring or dirt. Resetting the thermostat or replacing it may be necessary if these steps don't resolve the problem.","[""Screwdriver"", ""Multimeter"", ""Replacement batteries""]","[""1. Turn off the HVAC system and the power supply at the circuit breaker."", ""2. Remove the thermostat cover using a screwdriver."", ""3. Check for batteries and replace them if they are dead or missing."", ""4. Use a multimeter to verify that the thermostat is receiving power from the HVAC control board."", ""5. Inspect wiring connections for looseness or corrosion and tighten or clean as needed."", ""6. Reassemble the thermostat and turn the power back on to test functionality."", ""7. Reset the thermostat to factory settings if it has a reset option."", ""8. If the problem persists, consider replacing the thermostat.""]",Always turn off power at the circuit breaker before working on electrical components to prevent shock or injury.,"[""Keep a small screwdriver and multimeter handy for quick thermostat troubleshooting."", ""Take a photo of the wiring before disconnecting anything to ensure correct reassembly."", ""Consult the thermostat’s manual for specific reset procedures and troubleshooting tips.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+40,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?"",
+  ""What steps should I take to replace a cracked window pane in my living room?"",
+  ""My bathroom door squeaks loudly every time I open or close it. How can I fix this issue?"",
+  ""How can I fix a drywall crack that has appeared above a window frame in my living room?"",
+  ""My bedroom door suddenly became very hard to open and close due to swelling from humidity. How can I fix this issue?""
+]",What is the best way to repair peeling paint and minor damage on drywall near a kitchen sink?,Peeling paint and minor damage on drywall near a kitchen sink due to moisture exposure.,"To repair peeling paint and minor damage on drywall near a kitchen sink, first remove all loose paint and damaged drywall. Then, apply a patching compound to smooth the surface, sand it once dry, prime the area, and repaint with moisture-resistant paint.","[""putty knife"", ""sandpaper"", ""primer"", ""paintbrush"", ""moisture-resistant paint""]","[""1. Scrape off peeling paint and any loose drywall material using a putty knife."", ""2. Apply patching compound to the damaged area and smooth it out evenly."", ""3. Allow the compound to dry completely, then sand the area until smooth."", ""4. Apply a primer to the repaired area to ensure proper paint adhesion."", ""5. Once the primer is dry, paint over the area with moisture-resistant paint to protect against future damage.""]",Wear a dust mask when sanding to avoid inhaling dust particles. Ensure proper ventilation when using primer and paint to avoid inhaling fumes.,"[""Use a moisture-resistant paint designed for high-humidity areas like kitchens and bathrooms."", ""Consider using a mildew-resistant primer for added protection."", ""Keep the area well ventilated to prevent future moisture buildup.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+41,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?"",
+  ""How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?"",
+  ""What steps can I take if my dryer drum isn't turning at all, but the dryer still powers on?"",
+  ""What can I do if my washing machine leaks water from the bottom during the wash cycle?"",
+  ""What should I do if my refrigerator's ice maker has stopped producing ice completely?"",
+  ""What can I do if my washing machine stops mid-cycle and displays an error code?""
+]",How can I address a washer that vibrates excessively and moves during the spin cycle?,Excessive vibration and movement during washer spin cycle,"To fix a washer that vibrates excessively and moves, ensure the machine is level on the floor and the load is balanced. Check and adjust the leveling feet if necessary and redistribute the laundry evenly inside the drum.","[""Level"", ""Wrench""]","[""1. Unplug the washing machine for safety."", ""2. Use a level to check if the washer is sitting evenly on the floor."", ""3. Adjust the leveling feet by turning them clockwise or counterclockwise until the washer is level."", ""4. Plug the machine back in and run a spin cycle with a balanced load of laundry."", ""5. If the washer still vibrates or moves, redistribute the laundry to balance the weight inside the drum."", ""6. Repeat the spin cycle test and make further adjustments to feet or load as needed.""]",Always unplug the washing machine before performing any adjustments to avoid electrical shock.,"[""Use a bit of cardboard or a mat under the washer to help dampen vibration."", ""Avoid washing single heavy items which can cause imbalance."", ""Check the floor beneath the washer to ensure it is sturdy and not causing instability.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+42,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?"",
+  ""What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?"",
+  ""How can I repair a toilet that keeps running after flushing and doesn\u2019t stop on its own?"",
+  ""How can I fix a kitchen sink faucet that makes a loud screeching noise when I turn it on?"",
+  ""What is the process to repair a leaking pipe joint under my kitchen sink that causes water to pool on the cabinet floor?"",
+  ""Why does my outdoor garden hose connection keep leaking water when the hose is turned on, and how can I fix it?""
+]",How can I stop my bathtub faucet from leaking and causing water to drip continuously into the tub?,Leaking bathtub faucet causing continuous dripping water.,"To fix a leaking bathtub faucet that drips water continuously, you typically need to replace the worn-out faucet washer or cartridge. First, shut off the water supply. Then, remove the faucet handle and the valve stem to access the washer or cartridge. Replace the faulty part with a new one and reassemble the faucet.","[""adjustable wrench"", ""screwdriver"", ""replacement faucet washer or cartridge"", ""plumber's grease""]","[""1. Turn off the water supply to the bathtub."", ""2. Use a screwdriver to remove the faucet handle."", ""3. Unscrew the valve stem using an adjustable wrench."", ""4. Inspect the washer or cartridge for damage and remove it."", ""5. Replace with a new washer or cartridge as needed, applying plumber's grease if recommended."", ""6. Reassemble the faucet components in reverse order."", ""7. Turn the water supply back on and check for leaks.""]",Ensure the water supply is completely turned off before starting to avoid water damage. Use tools carefully to avoid injury.,"[""Take a photo of the faucet assembly before disassembly for reference."", ""Use plumber's grease on moving parts to extend lifespan."", ""If the leak persists after replacing the washer, the valve seat might be damaged and require professional repair.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+43,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?"",
+  ""How can I fix a kitchen outlet that sparks when plugging in appliances?"",
+  ""How can I troubleshoot and fix a bathroom outlet that has stopped working but other outlets in the room work fine?"",
+  ""How do I safely install a dimmer switch to replace a standard light switch in my bedroom?"",
+  ""How can I replace a burnt electrical outlet in my home office safely?"",
+  ""What is the correct method to replace a three-way light switch that is malfunctioning in a hallway?""
+]",What steps should I take to replace a faulty outdoor electrical outlet that has been damaged by weather?,Faulty outdoor electrical outlet damaged by weather,"To replace a faulty outdoor electrical outlet, first turn off the power at the breaker. Remove the outlet cover and unscrew the old outlet. Disconnect the wires and connect them to the corresponding terminals on the new outlet. Secure the outlet back into the box and attach a weatherproof cover. Finally, restore power and test the outlet.","[""screwdriver"", ""wire stripper"", ""voltage tester"", ""replacement outdoor electrical outlet"", ""weatherproof outlet cover""]","[""1. Turn off the power to the outdoor outlet at the circuit breaker."", ""2. Use a screwdriver to remove the outlet cover and then unscrew the old outlet from the electrical box."", ""3. Use a voltage tester to confirm the power is off."", ""4. Carefully disconnect the wires from the old outlet, remembering their placement."", ""5. Strip the wire ends if necessary and connect them to the corresponding terminals on the new outdoor-rated outlet."", ""6. Screw the new outlet securely into the box."", ""7. Attach a weatherproof cover over the outlet to protect it from moisture."", ""8. Turn the power back on at the breaker and test the outlet with a voltage tester or a small appliance.""]",Always ensure the power is off before starting electrical work to avoid shock. Use a voltage tester to confirm no electricity is present. Use outdoor-rated outlets and covers to prevent water intrusion.,"[""Make sure the outlet you purchase is rated for outdoor use."", ""If wire insulation is damaged, replace or repair it before connecting to the new outlet."", ""Use a weatherproof cover with a gasket for better moisture protection.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+44,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?"",
+  ""The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?"",
+  ""My HVAC system has suddenly stopped blowing air from the vents altogether, even though the system seems to be running. What could be causing this and how can I fix it?"",
+  ""How do I replace the clogged air filter in my HVAC system to restore proper airflow?"",
+  ""The air coming out of my vents feels weak and inconsistent, and I suspect there might be blockages or buildup inside the ductwork. How can I clean my air ducts to improve airflow and system efficiency?"",
+  ""My thermostat display is blank, and the HVAC system isn't responding to any inputs. What troubleshooting steps can I take to fix this issue?""
+]","I noticed that my HVAC system runs continuously without shutting off, causing high energy bills. What can cause this and how can I fix it?",HVAC system runs continuously without turning off,"A HVAC system running constantly usually means the thermostat is set incorrectly, the fan settings are stuck on ""On"", or there is an issue with the thermostat sensor. Check the thermostat fan setting and set it to ""Auto"". Make sure the thermostat temperature setting is appropriate and different from the current room temperature. If the problem persists, replace the thermostat battery or the thermostat itself.","[""Screwdriver"", ""Replacement thermostat batteries (if needed)"", ""New thermostat (if replacement needed)""]","[""1. Check the thermostat fan setting and ensure it is set to \""Auto\"" instead of \""On\""."", ""2. Verify the temperature settings on the thermostat to ensure the system is not running to reach a temperature too close to the current room temperature."", ""3. Replace the thermostat batteries if it uses them, to reset any sensor issues."", ""4. If the system still runs continuously, consider replacing the thermostat with a new one designed for your HVAC system."", ""5. Test the system after making changes to confirm it cycles on and off properly.""]",Always turn off power to the HVAC system before replacing the thermostat or batteries to avoid electrical shock.,"[""Regularly change thermostat batteries to avoid sensor and control issues."", ""Ensure the thermostat is installed away from heat sources or drafts that can cause inaccurate temperature readings."", ""Program your thermostat to optimize energy use and avoid unnecessary system run time.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+45,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?"",
+  ""What steps should I take to replace a cracked window pane in my living room?"",
+  ""My bathroom door squeaks loudly every time I open or close it. How can I fix this issue?"",
+  ""How can I fix a drywall crack that has appeared above a window frame in my living room?"",
+  ""My bedroom door suddenly became very hard to open and close due to swelling from humidity. How can I fix this issue?"",
+  ""What is the best way to repair peeling paint and minor damage on drywall near a kitchen sink?""
+]",How do I repair a dented wooden baseboard that got damaged during furniture moving?,Dented wooden baseboard,"To repair a dented wooden baseboard, you need to fill the dent with wood filler, sand it smooth once dry, and then repaint or stain to match the existing baseboard color.","[""wood filler"", ""putty knife"", ""sandpaper"", ""paintbrush"", ""matching paint or stain""]","[""1. Clean the dented area to remove any dust or debris."", ""2. Use a putty knife to apply wood filler into the dent, slightly overfilling it."", ""3. Allow the wood filler to dry completely as per the manufacturer's instructions."", ""4. Sand the filled area smoothly so it is flush with the surrounding baseboard."", ""5. Wipe off sanding dust and apply matching paint or stain to blend the repair with the rest of the baseboard.""]","Wear a dust mask when sanding to avoid inhaling wood dust, and ensure good ventilation when using paint or stain.","[""Choose a wood filler that can be stained or painted to match your baseboard finish."", ""Test paint or stain on a small inconspicuous area first to ensure color match."", ""Use fine-grit sandpaper to avoid scratching the surrounding wood.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+46,appliance,"System prompt:
+You are a DIY appliance repair expert (refrigerators, washers, dryers, etc.). 
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""Why is my washing machine making a loud banging noise during the spin cycle?"",
+  ""What should I do if my dryer stops heating but still runs the drum?"",
+  ""How can I fix a refrigerator that is running but not cooling properly?"",
+  ""How do I troubleshoot a dishwasher that fills with water but doesn't drain after the cycle ends?"",
+  ""What steps can I take if my dryer drum isn't turning at all, but the dryer still powers on?"",
+  ""What can I do if my washing machine leaks water from the bottom during the wash cycle?"",
+  ""What should I do if my refrigerator's ice maker has stopped producing ice completely?"",
+  ""What can I do if my washing machine stops mid-cycle and displays an error code?"",
+  ""How can I address a washer that vibrates excessively and moves during the spin cycle?""
+]",How can I fix a front-loading washing machine that takes too long to drain water after the wash cycle?,Washing machine slow draining water,"If your front-loading washing machine takes an unusually long time to drain water, it’s often due to a clogged drain pump filter or a blockage in the drain hose. First, unplug the machine and locate the drain pump filter, usually behind a small access panel at the front bottom of the washer. Place a shallow pan under the filter, unscrew it carefully to drain residual water, and check for debris or lint clogs. Clean the filter thoroughly and reinstall it. Then inspect the drain hose for any kinks or blockages, removing any obstructions found. Restart the machine and run a rinse and spin cycle to check if the draining time improves.","[""Screwdriver"", ""Pliers"", ""Bucket or shallow pan"", ""Towels""]","[""1. Unplug the washing machine to ensure safety before starting any repairs."", ""2. Locate the drain pump filter access panel at the bottom front of the machine and open it using a screwdriver if necessary."", ""3. Place a bucket or shallow pan underneath the filter to catch any water, then unscrew the filter carefully."", ""4. Remove lint, debris, or blockages from the filter and clean it thoroughly under running water."", ""5. Check the drain hose behind the machine for kinks or blockages and clear any debris using pliers or by flushing with water."", ""6. Reinstall the drain pump filter securely and close the access panel."", ""7. Plug the machine back in and run a rinse and spin cycle to test if the draining time has improved.""]",Always unplug the washing machine before attempting any repairs to avoid electrical shock. Use towels or a pan to catch water spills.,"[""Regularly clean the drain pump filter every few months to prevent clogs."", ""Check and straighten the drain hose periodically to avoid kinks that restrict water flow.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+47,Plumbing,"System prompt:
+You are a DIY plumbing expert (leaks, clogs, fixture repairs, pipe problems, etc.).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I stop my bathroom sink from leaking underneath when I turn on the faucet?"",
+  ""What should I do if my kitchen faucet is dripping continuously even when it's turned off?"",
+  ""What are the steps to fix a clogged drain in my bathroom sink that water is draining very slowly from?"",
+  ""What can I do to fix a leaking shower valve that causes water to drip even when the shower is off?"",
+  ""How can I repair a toilet that keeps running after flushing and doesn\u2019t stop on its own?"",
+  ""How can I fix a kitchen sink faucet that makes a loud screeching noise when I turn it on?"",
+  ""What is the process to repair a leaking pipe joint under my kitchen sink that causes water to pool on the cabinet floor?"",
+  ""Why does my outdoor garden hose connection keep leaking water when the hose is turned on, and how can I fix it?"",
+  ""How can I stop my bathtub faucet from leaking and causing water to drip continuously into the tub?""
+]",What should I do if my bathroom sink faucet has a loose handle that wobbles when I turn it on or off?,Loose faucet handle on bathroom sink,"To fix a loose handle on your bathroom sink faucet, you need to tighten the set screw or replace any worn parts. First, remove the decorative cap on the handle to access the screw. Then, use the appropriate screwdriver or Allen wrench to tighten the screw securely. If the handle still wobbles, check for worn or damaged parts inside the handle assembly and replace them if necessary.","[""screwdriver"", ""Allen wrench"", ""replacement handle parts (if needed)""]","[""1. Turn off the water supply to the sink to prevent accidental water flow."", ""2. Pry off the decorative cap covering the handle screw with a flathead screwdriver."", ""3. Use a screwdriver or Allen wrench to tighten the set screw holding the handle in place."", ""4. Test the handle to see if it still wobbles when turned on or off."", ""5. If the handle is still loose, remove it completely and inspect for worn or broken parts."", ""6. Replace any damaged internal components and reassemble the handle."", ""7. Turn the water supply back on and test the faucet for proper handle stability.""]",Always ensure the water supply is turned off before beginning repairs to prevent water damage and injuries due to sudden water flow.,"[""Keep replacement parts specific to your faucet model on hand to make repairs easier."", ""Use the correct size screwdriver or Allen wrench to avoid stripping screws."", ""Be gentle when removing decorative caps to avoid breaking them.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+48,electrical,"System prompt:
+You are a diy electrical expert (outlet replacement, switch repair, light fixture installation, etc.). Provide onlly repairs that can be safely performed by a home owner.
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How do I replace a faulty light switch that doesn't turn the light on or off?"",
+  ""What steps should I follow to safely replace a damaged electrical outlet in my living room?"",
+  ""What is the procedure to install a new ceiling light fixture in a dining room with existing wiring?"",
+  ""How can I fix a kitchen outlet that sparks when plugging in appliances?"",
+  ""How can I troubleshoot and fix a bathroom outlet that has stopped working but other outlets in the room work fine?"",
+  ""How do I safely install a dimmer switch to replace a standard light switch in my bedroom?"",
+  ""How can I replace a burnt electrical outlet in my home office safely?"",
+  ""What is the correct method to replace a three-way light switch that is malfunctioning in a hallway?"",
+  ""What steps should I take to replace a faulty outdoor electrical outlet that has been damaged by weather?""
+]",How can I safely install a motion sensor light switch to automate the porch lighting?,Installing a motion sensor light switch to automate porch lighting.,"To install a motion sensor light switch for your porch lighting, first turn off the power at the circuit breaker. Remove the existing switch by unscrewing the cover and disconnecting the wires. Connect the wires to the corresponding terminals on the motion sensor switch, usually marked as line, load, neutral, and ground. Mount the new switch in the wall box, screw on the cover plate, and restore power to test the sensor. Adjust the motion sensor settings as needed for sensitivity and timer.","[""Screwdriver"", ""Voltage tester"", ""Wire stripper"", ""Electrical tape""]","[""1. Turn off power at the circuit breaker controlling the porch light."", ""2. Remove the switch cover plate and unscrew the existing switch."", ""3. Use a voltage tester to confirm power is off."", ""4. Disconnect the wires from the old switch."", ""5. Connect the wires to the motion sensor switch terminals as per instructions (line, load, neutral, ground)."", ""6. Secure the motion sensor switch into the electrical box and attach the cover plate."", ""7. Turn on the power at the circuit breaker and test the sensor functionality."", ""8. Adjust sensor sensitivity and timer settings according to preference.""]",Always ensure the power is turned off at the circuit breaker before starting electrical work. Use a voltage tester to double-check that wires are not live. Follow the manufacturer's wiring instructions carefully to prevent electrical hazards.,"[""Label wires before disconnecting to ensure correct reconnection."", ""If there is no neutral wire in the box, this switch may require professional installation."", ""Test the sensor range and adjust placement if needed for optimal coverage.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+49,hvac,"System prompt:
+You are a diy HVAC repair expert (filter changes, thermostat issues, vent cleaning, basic troubleshooting).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""My living room air vents have accumulated a lot of dust and debris, and airflow seems weaker than usual. How can I clean the vents effectively to improve air quality and flow?"",
+  ""The air coming from my HVAC vents has a strange musty smell. How can I identify and fix the source of the odor?"",
+  ""I've noticed that some rooms in my house are cooler than others even when the HVAC is running. How can I troubleshoot and fix uneven heating and cooling in my home?"",
+  ""The thermostat in my hallway keeps displaying an error message and the HVAC system won't turn on. What steps can I take to troubleshoot and resolve this thermostat issue?"",
+  ""My HVAC system has suddenly stopped blowing air from the vents altogether, even though the system seems to be running. What could be causing this and how can I fix it?"",
+  ""How do I replace the clogged air filter in my HVAC system to restore proper airflow?"",
+  ""The air coming out of my vents feels weak and inconsistent, and I suspect there might be blockages or buildup inside the ductwork. How can I clean my air ducts to improve airflow and system efficiency?"",
+  ""My thermostat display is blank, and the HVAC system isn't responding to any inputs. What troubleshooting steps can I take to fix this issue?"",
+  ""I noticed that my HVAC system runs continuously without shutting off, causing high energy bills. What can cause this and how can I fix it?""
+]",The vent registers in my bedrooms are hot to the touch and the rooms feel warmer than the rest of the house during summer. How can I adjust my vents to balance the temperature throughout the home?,Uneven room temperature due to improper vent airflow distribution,You can balance the temperature by adjusting the vent registers to control airflow. Partially close the vents in warmer rooms and fully open vents in cooler areas to help distribute air evenly.,"[""Screwdriver"", ""Vent register adjustment tool or pliers""]","[""1. Use a screwdriver to remove the vent registers from the warmer rooms."", ""2. Adjust the vent louvers to partially close the vents, reducing airflow into those rooms."", ""3. Check the vents in cooler rooms and make sure they are fully open to allow maximum airflow."", ""4. Replace the registers securely after adjustment."", ""5. Monitor the room temperatures over the next few hours and readjust as necessary to achieve balance.""]",Turn off the HVAC system before removing or adjusting vent registers to avoid injury from moving parts or debris.,"[""Make small adjustments and wait to feel the effect before making further changes."", ""Keep vents clean and free of dust to improve airflow."", ""Check for any obstructions behind registers that could limit air movement.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+50,general,"System prompt:
+You are a general home repair diyy expert (drywall, doors/windows, flooring, basic carpentry).
+
+User prompt:
+Return exactly one JSON object matching this shape:
+{
+  ""id"": 1,
+  ""question"": ""string"",
+  ""answer"": ""string"",
+  ""equipment_problem"": ""string"",
+  ""tools_required"": [
+    ""string""
+  ],
+  ""steps"": [
+    ""1. string"",
+    ""2. string""
+  ],
+  ""safety_info"": ""string"",
+  ""tips"": [
+    ""string""
+  ]
+}
+
+Requirements:
+- Create realistic homeowner repair question/answer pairs that strictly follow the required schema.
+- The question must be meaningfully different from earlier questions in this same category.
+- The question must be a novel scenario and wording.
+- steps must be ordered and numbered like '1. ...', '2. ...'
+- tools_required and tips must be realistic and practical
+- no markdown, no extra keys, no commentary
+
+Do not repeat or closely paraphrase any of these prior questions:
+[
+  ""How can I fix a sticking interior wooden door that won't close properly?"",
+  ""How do I repair a small hole in my drywall caused by a doorknob?"",
+  ""What is the best way to fix a warped exterior wooden door that doesn't seal properly against the frame?"",
+  ""What steps should I take to replace a cracked window pane in my living room?"",
+  ""My bathroom door squeaks loudly every time I open or close it. How can I fix this issue?"",
+  ""How can I fix a drywall crack that has appeared above a window frame in my living room?"",
+  ""My bedroom door suddenly became very hard to open and close due to swelling from humidity. How can I fix this issue?"",
+  ""What is the best way to repair peeling paint and minor damage on drywall near a kitchen sink?"",
+  ""How do I repair a dented wooden baseboard that got damaged during furniture moving?""
+]",How can I stop a hollow-sounding wooden floorboard from creaking when I walk on it?,Floorboard creaking due to loose attachment to the subfloor or joists.,You can stop a hollow-sounding floorboard from creaking by securing it properly to the joists beneath. This usually involves lifting the floorboard slightly and adding screws or nails directly into the joists to stabilize it.,"[""Screwdriver"", ""Wood screws"", ""Drill with screwdriver bit"", ""Hammer"", ""Wood shims""]","[""1. Locate the joists beneath the creaking floorboard by tapping or using a stud finder."", ""2. Lift the floorboard slightly using a pry bar if needed to access the joists underneath."", ""3. Place wood shims between the joist and the floorboard if there is a gap to tighten the fit."", ""4. Secure the floorboard by driving wood screws into the joists through the floorboard."", ""5. Replace any sections carefully and test for creaking by walking over the area.""]",Wear safety goggles when working with tools and lifting floorboards to protect your eyes from debris. Use caution when lifting floorboards to avoid splinters and damage.,"[""Use wood screws instead of nails for a longer-lasting fix."", ""Be careful not to overtighten screws to avoid splitting the wood."", ""If lifting the floorboard is difficult, consider drilling screws close to the edges where boards meet to secure them."", ""Apply a bit of wood glue along the joists before securing screws for extra stability.""]",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

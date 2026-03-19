@@ -50,6 +50,64 @@ def load_env_file(path: str = ".env") -> None:
         os.environ.setdefault(key, value)
 
 
+class QualityMetrics(BaseModel):
+    answer_coherence: int = Field(
+        ..., ge=0, le=1, description="The answer should read as a complete, natural response."
+    )
+    step_actionability: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="Steps should be specific enough for a homeowner to follow without guessing.",
+    )
+    tool_realism: int = Field(
+        ..., ge=0, le=1, description="Tools should be realistic for a typical homeowner to have."
+    )
+    safety_specificity: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="Safety guidance should name specific hazards and precautions, not generic warnings.",
+    )
+    tip_usefulness: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="Tips should be task-specific and add value beyond restating the steps.",
+    )
+    problem_answer_alignment: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="The answer should directly address the user question and stated problem.",
+    )
+    appropriate_scope: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="The repair should stay within realistic DIY scope and defer unsafe work.",
+    )
+    category_accuracy: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="The category should correctly match the repair domain described by the record.",
+    )
+
+
+def build_default_quality_failures() -> QualityMetrics:
+    return QualityMetrics(
+        answer_coherence=1,
+        step_actionability=1,
+        tool_realism=1,
+        safety_specificity=1,
+        tip_usefulness=1,
+        problem_answer_alignment=1,
+        appropriate_scope=1,
+        category_accuracy=1,
+    )
+
+
 class JudgeResult(BaseModel):
     id: int = Field(..., ge=1)
     incomplete_answer: int = Field(..., ge=0, le=1)
@@ -60,6 +118,7 @@ class JudgeResult(BaseModel):
     poor_quality_tips: int = Field(..., ge=0, le=1)
     overall_failed: int = Field(..., ge=0, le=1)
     notes: str = Field(..., min_length=3)
+    quality: QualityMetrics = Field(..., description="Quality metrics for the answer")
 
 
 def compute_overall_failed(result: JudgeResult) -> int:
@@ -70,11 +129,38 @@ def compute_overall_failed(result: JudgeResult) -> int:
         result.overcomplicated_solution,
         result.missing_context,
         result.poor_quality_tips,
+        *result.quality.model_dump().values(),
     ]
     return 1 if any(flag == 1 for flag in flags) else 0
 
 
+def build_schema_validation_failure_result(raw: Any, idx: int, exc: ValidationError) -> JudgeResult:
+    record_id = raw.get("id", idx) if isinstance(raw, dict) and isinstance(raw.get("id", idx), int) else idx
+    return JudgeResult(
+        id=record_id,
+        incomplete_answer=1,
+        safety_violations=0,
+        unrealistic_tools=0,
+        overcomplicated_solution=0,
+        missing_context=1,
+        poor_quality_tips=0,
+        overall_failed=1,
+        notes=f"Schema validation failed before LLM judging: {exc.errors()[0].get('msg', 'Schema validation error')}",
+        quality=build_default_quality_failures(),
+    )
+
+
 def build_judge_prompt(record: dict[str, Any]) -> str:
+    quality_shape = {
+        "answer_coherence": 0,
+        "step_actionability": 0,
+        "tool_realism": 0,
+        "safety_specificity": 0,
+        "tip_usefulness": 0,
+        "problem_answer_alignment": 0,
+        "appropriate_scope": 0,
+        "category_accuracy": 0,
+    }
     result_shape = {
         "id": record.get("id", 0),
         "incomplete_answer": 0,
@@ -85,23 +171,33 @@ def build_judge_prompt(record: dict[str, Any]) -> str:
         "poor_quality_tips": 0,
         "overall_failed": 0,
         "notes": "Short reasoning for the flags.",
+        "quality": quality_shape,
     }
     return (
         "Evaluate this DIY repair record:\n"
         f"{json.dumps(record, indent=2)}\n\n"
-        "Failure mode definitions:\n"
+        "Top-level failure mode definitions (0 = pass, 1 = fail):\n"
         "- incomplete_answer: Answer lacks enough detail to complete the repair.\n"
         "- safety_violations: Missing or incorrect safety warnings for hazardous tasks.\n"
         "- unrealistic_tools: Uses professional/specialized tools not typical at home.\n"
         "- overcomplicated_solution: Pushes professional service for simple DIY tasks.\n"
         "- missing_context: Missing problem context needed to understand the repair.\n"
         "- poor_quality_tips: Tips are vague, generic, or not useful.\n\n"
+        "Nested quality metric definitions inside the `quality` object (0 = pass, 1 = fail):\n"
+        "- answer_coherence: The answer should read naturally, not like a stitched list of fields.\n"
+        "- step_actionability: Steps should be concrete, observable, and specific enough to follow.\n"
+        "- tool_realism: Tools should be realistic for a typical homeowner to already own.\n"
+        "- safety_specificity: Safety guidance should name the actual hazard and exact precaution.\n"
+        "- tip_usefulness: Tips should add non-obvious, task-specific value beyond the steps.\n"
+        "- problem_answer_alignment: The answer should directly address the stated question/problem.\n"
+        "- appropriate_scope: Unsafe or non-DIY work should be clearly deferred to a professional.\n"
+        "- category_accuracy: The record's category field should correctly match the repair domain.\n\n"
         "Return exactly one JSON object with this shape:\n"
         f"{json.dumps(result_shape, indent=2)}\n\n"
         "Rules:\n"
-        "- each failure field must be binary: 0 (pass) or 1 (fail)\n"
-        
-        "- overall_failed must be 1 if any failure field is 1; else 0\n"
+        "- each top-level failure field must be binary: 0 (pass) or 1 (fail)\n"
+        "- each field inside quality must be binary: 0 (pass) or 1 (fail)\n"
+        "- overall_failed must be 1 if any top-level failure field is 1 or any quality field is 1; else 0\n"
         "- notes should briefly justify the major flag(s)\n"
         "- no markdown, no extra keys, no commentary\n"
     )
@@ -127,7 +223,7 @@ def request_judgment(
             text = response.output_text.strip()
             result = JudgeResult.model_validate(json.loads(text))
             result.overall_failed = compute_overall_failed(result)
-            print(f"judgedd id {result.id}")
+            print(f"judged id {result.id}")
             return result
         except (RateLimitError, APIConnectionError, APITimeoutError, InternalServerError, APIStatusError) as exc:
             status_code = getattr(exc, "status_code", None)
@@ -224,19 +320,7 @@ def main() -> None:
         try:
             record = DIYRepairQA.model_validate(raw)
         except ValidationError as exc:
-            judged_rows.append(
-                JudgeResult(
-                    id=raw.get("id", idx) if isinstance(raw.get("id", idx), int) else idx,
-                    incomplete_answer=1,
-                    safety_violations=0,
-                    unrealistic_tools=0,
-                    overcomplicated_solution=0,
-                    missing_context=1,
-                    poor_quality_tips=0,
-                    overall_failed=1,
-                    notes=f"Schema validation failed before LLM judging: {exc.errors()[0].get('msg', 'Schema validation error')}",
-                ).model_dump()
-            )
+            judged_rows.append(build_schema_validation_failure_result(raw, idx, exc).model_dump())
             continue
 
         result = request_judgment(

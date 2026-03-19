@@ -17,7 +17,7 @@ judge_prompt_configs: list[dict[str, str]] = [
         "type": "appliance_judge",
         "prompt": (
             "You are a strict dataset quality judge for DIY appliance repair records.\n"
-            "Evaluate the record given with the required failure modes."
+            "Evaluate the record given with the required failure modes and quality metrics."
         ),
     }
 ]

@@ -5,6 +5,7 @@ import difflib
 import json
 import os
 import random
+import re
 import time
 from pathlib import Path
 from typing import Any
@@ -79,6 +80,7 @@ def build_user_prompt(recent_questions: list[str], max_recent: int = 15) -> str:
         "Requirements:\n"
         "- Create realistic homeowner repair question/answer pairs that strictly follow "
         "the required schema.\n"
+        "- The question must be meaningfully different from earlier questions in this same category.\n"
         "- The question must be a novel scenario and wording.\n"
         "- steps must be ordered and numbered like '1. ...', '2. ...'\n"
         "- tools_required and tips must be realistic and practical\n"
@@ -89,17 +91,53 @@ def build_user_prompt(recent_questions: list[str], max_recent: int = 15) -> str:
     )
 
 
+def build_full_generation_prompt(system_prompt: str, user_prompt: str) -> str:
+    return (
+        "System prompt:\n"
+        f"{system_prompt}\n\n"
+        "User prompt:\n"
+        f"{user_prompt}"
+    )
+
+
+def normalize_question_text(question: str) -> str:
+    cleaned = re.sub(r"[^a-z0-9]+", " ", question.lower())
+    return " ".join(cleaned.split())
+
+
+def classify_question_similarity(
+    candidate_question: str,
+    global_normalized_questions: set[str],
+    category_normalized_questions: list[str],
+    similarity_threshold: float,
+) -> str | None:
+    normalized_candidate = normalize_question_text(candidate_question)
+    if normalized_candidate in global_normalized_questions:
+        return "duplicate"
+
+    is_near_duplicate = any(
+        difflib.SequenceMatcher(a=normalized_candidate, b=existing).ratio()
+        >= similarity_threshold
+        for existing in category_normalized_questions
+    )
+    if is_near_duplicate:
+        return "near-duplicate"
+    return None
+
+
 def request_one_record(
     client: instructor.Instructor,
     model: str,
+    prompt_config: dict[str, str],
     recent_questions: list[str],
     temperature: float,
     top_p: float,
     max_retries: int = 6,
     base_backoff_seconds: float = 1.0,
     max_backoff_seconds: float = 20.0,
-    id: int = 0,
 ) -> dict[str, Any]:
+    system_prompt = prompt_config["prompt"]
+    user_prompt = build_user_prompt(recent_questions)
     for attempt in range(max_retries + 1):
         try:
             response = client.chat.completions.create(
@@ -108,8 +146,8 @@ def request_one_record(
                 temperature=temperature,
                 top_p=top_p,
                 messages=[
-                    {"role": "system", "content": prompt_configs[id%5]["prompt"]},
-                    {"role": "user", "content": build_user_prompt(recent_questions)},
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
                 ],
             )
             break
@@ -131,7 +169,9 @@ def request_one_record(
             )
             time.sleep(delay)
 
-    return response.model_dump()
+    raw = response.model_dump()
+    raw["prompt"] = build_full_generation_prompt(system_prompt, user_prompt)
+    return raw
 
 
 def generate_records(
@@ -145,43 +185,50 @@ def generate_records(
     retry_max: int = 6,
 ) -> list[DIYRepairQA]:
     items: list[DIYRepairQA] = []
-    normalized_questions: set[str] = set()
+    global_normalized_questions: set[str] = set()
+    category_normalized_questions: dict[str, list[str]] = {
+        config["type"]: [] for config in prompt_configs
+    }
+    category_recent_questions: dict[str, list[str]] = {
+        config["type"]: [] for config in prompt_configs
+    }
     attempts = 0
     max_attempts = count * 4
 
     while len(items) < count and attempts < max_attempts:
         attempts += 1
         print(f"Attempt {attempts}/{max_attempts} (accepted: {len(items)}/{count})")
+        prompt_config = prompt_configs[len(items) % len(prompt_configs)]
+        current_category = prompt_config["type"]
         try:
             raw = request_one_record(
                 client,
                 model,
-                recent_questions=[x.question for x in items],
+                prompt_config=prompt_config,
+                recent_questions=category_recent_questions[current_category],
                 temperature=temperature,
                 top_p=top_p,
                 max_retries=retry_max,
-                id=len(items),
             )
             raw["id"] = len(items) + 1
-            raw["model"]=model
-            raw["prompt"]=prompt_configs[len(items)%5]["type"]
+            raw["model"] = model
+            raw["category"] = current_category
             item = DIYRepairQA.model_validate(raw)
 
-            normalized_question = " ".join(item.question.lower().split())
-            if normalized_question in normalized_questions:
-                print(f"Rejected candidate (duplicate question): {item.question}")
-                continue
-
-            is_near_duplicate = any(
-                difflib.SequenceMatcher(a=normalized_question, b=existing).ratio()
-                >= question_similarity_threshold
-                for existing in normalized_questions
+            similarity_result = classify_question_similarity(
+                candidate_question=item.question,
+                global_normalized_questions=global_normalized_questions,
+                category_normalized_questions=category_normalized_questions[current_category],
+                similarity_threshold=question_similarity_threshold,
             )
-            if is_near_duplicate:
-                print(f"Rejected candidate (near-duplicate question): {item.question}")
+            if similarity_result is not None:
+                print(f"Rejected candidate ({similarity_result} question in {current_category}): {item.question}")
                 continue
 
-            normalized_questions.add(normalized_question)
+            normalized_question = normalize_question_text(item.question)
+            global_normalized_questions.add(normalized_question)
+            category_normalized_questions[current_category].append(normalized_question)
+            category_recent_questions[current_category].append(item.question)
             items.append(item)
             print(f"Accepted record id={item.id} ({len(items)}/{count})")
         except (ValueError, ValidationError):

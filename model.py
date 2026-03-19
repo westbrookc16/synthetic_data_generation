@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class DIYRepairQA(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     id: int = Field(..., ge=1, description="Unique integer identifier for the record")
-    prompt:str=Field(description="Which prompt was used.")
-    model:str=Field(description="which model was used.")
+    category: str = Field(..., min_length=3, description="Dataset category used to generate the record.")
+    prompt: str = Field(default="", description="Full prompt text used to generate the record.")
+    model: str = Field(description="Which model was used.")
     
     question: str = Field(..., min_length=10, description="A realistic DIY repair question from a homeowner")
     answer: str = Field(..., min_length=20, description="A clear, actionable answer with step-by-step guidance")
@@ -16,13 +19,26 @@ class DIYRepairQA(BaseModel):
     safety_info: str = Field(..., min_length=10, description="Relevant safety warnings and precautions")
     tips: list[str] = Field(..., min_length=1, description="Practical tips to make the repair easier or more reliable")
 
-    @field_validator("question", "answer", "equipment_problem", "safety_info")
+    @model_validator(mode="before")
+    @classmethod
+    def populate_category_from_legacy_prompt(cls, data: object) -> object:
+        if isinstance(data, dict) and "category" not in data and "prompt" in data:
+            data = dict(data)
+            data["category"] = data["prompt"]
+        return data
+
+    @field_validator("category", "question", "answer", "equipment_problem", "safety_info")
     @classmethod
     def validate_non_empty_text(cls, value: str) -> str:
         value = value.strip()
         if not value:
             raise ValueError("must not be empty")
         return value
+
+    @field_validator("prompt")
+    @classmethod
+    def validate_prompt_text(cls, value: str) -> str:
+        return value.strip()
 
     @field_validator("tools_required", "steps", "tips")
     @classmethod
